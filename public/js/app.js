@@ -3732,6 +3732,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         _this3.edit.email = res.data.email;
         _this3.edit.phone = res.data.phone;
         _this3.edit.alamat = res.data.alamat;
+        _this3.edit.provinsi = res.data.provinsi;
         _this3.edit.role = res.data.role;
         _this3.edit.kota = res.data.kota;
         _this3.edit.image_name = res.data.image_name;
@@ -6416,6 +6417,175 @@ var render = function render() {
       }
     }
   })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": ""
+    }
+  }, [_vm._v("Role: ")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.edit.provinsi,
+      expression: "edit.provinsi"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      name: "level",
+      id: ""
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.edit, "provinsi", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }, [_vm._v("Select one")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "aceh"
+    }
+  }, [_vm._v("Aceh")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Jakarta"
+    }
+  }, [_vm._v("DKI Jakarta")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Sumut"
+    }
+  }, [_vm._v("Sumatera Utara")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "sumbar"
+    }
+  }, [_vm._v("Sumatera Barat")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Riau"
+    }
+  }, [_vm._v("Riau")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Jambi"
+    }
+  }, [_vm._v("Jambi")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Sumsel"
+    }
+  }, [_vm._v("Sumatera Selatan")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Bengkulu"
+    }
+  }, [_vm._v("Bengkulu")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Lampung"
+    }
+  }, [_vm._v("Lampung")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "BaBel"
+    }
+  }, [_vm._v("Kep. Bangka Belitung")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "kepRiau"
+    }
+  }, [_vm._v("Kepulauan Riau")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Jabar"
+    }
+  }, [_vm._v("Jawa Barat")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Banten"
+    }
+  }, [_vm._v("Banten")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Jateng"
+    }
+  }, [_vm._v("Jawa Tengah")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Yogyakarta"
+    }
+  }, [_vm._v("Yogyakarta")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Jatim"
+    }
+  }, [_vm._v("Jawa Timur")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Kalbar"
+    }
+  }, [_vm._v("Kalimantan Barat")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Kalteng"
+    }
+  }, [_vm._v("Kalimantan Tengah")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Kalsel"
+    }
+  }, [_vm._v("Kalimantan Selatan")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Kaltim"
+    }
+  }, [_vm._v("Kalimantan Timur")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Kaltra"
+    }
+  }, [_vm._v("Kalimantan Utara")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Bali"
+    }
+  }, [_vm._v("Bali")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "NTT"
+    }
+  }, [_vm._v("Nusa Tenggara Timur")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "NTB"
+    }
+  }, [_vm._v("Nusa Tenggara Barat")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Sulut"
+    }
+  }, [_vm._v("Sulawesi Utara")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Sulteng"
+    }
+  }, [_vm._v("Sulawesi Tengah")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Sulsel"
+    }
+  }, [_vm._v("Sulawesi Selatan")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Sultengg"
+    }
+  }, [_vm._v("Sulawesi Tenggara")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Sulbar"
+    }
+  }, [_vm._v("Sulawesi Barat")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Gorontalo"
+    }
+  }, [_vm._v("Gorontalo")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Maluku"
+    }
+  }, [_vm._v("Maluku")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Maluku Utara"
+    }
+  }, [_vm._v("Maluku Utara")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Papua"
+    }
+  }, [_vm._v("Papua")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Papua Barat"
+    }
+  }, [_vm._v("Papua Barat")])])]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
   }, [_c("label", {
     attrs: {

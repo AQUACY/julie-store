@@ -228,6 +228,47 @@
                                     <textarea name="description" class="form-control" v-model="edit.kota"></textarea>
                                 </div>
                                 <div class="form-group">
+                                    <label for="">City : </label>
+                                    <select name="level" id="" v-model="edit.provinsi" class="form-control">
+                                        <option value="">Select one</option>
+                                        <option value="aceh">Aceh</option>
+                                        <option value="Jakarta">DKI Jakarta</option>
+                                        <option value="Sumut">Sumatera Utara</option>
+                                        <option value="sumbar">Sumatera Barat</option>
+                                        <option value="Riau">Riau</option>
+                                        <option value="Jambi">Jambi</option>
+                                        <option value="Sumsel">Sumatera Selatan</option>
+                                        <option value="Bengkulu">Bengkulu</option>
+                                        <option value="Lampung">Lampung</option>
+                                        <option value="BaBel">Kep. Bangka Belitung</option>
+                                        <option value="kepRiau">Kepulauan Riau</option>
+                                        <option value="Jabar">Jawa Barat</option>
+                                        <option value="Banten">Banten</option>
+                                        <option value="Jateng">Jawa Tengah</option>
+                                        <option value="Yogyakarta">Yogyakarta</option>
+                                        <option value="Jatim">Jawa Timur</option>
+                                        <option value="Kalbar">Kalimantan Barat</option>
+                                        <option value="Kalteng">Kalimantan Tengah</option>
+                                        <option value="Kalsel">Kalimantan Selatan</option>
+                                        <option value="Kaltim">Kalimantan Timur</option>
+                                        <option value="Kaltra">Kalimantan Utara</option>
+                                        <option value="Bali">Bali</option>
+                                        <option value="NTT">Nusa Tenggara Timur</option>
+                                        <option value="NTB">Nusa Tenggara Barat</option>
+                                        <option value="Sulut">Sulawesi Utara</option>
+                                        <option value="Sulteng">Sulawesi Tengah</option>
+                                        <option value="Sulsel">Sulawesi Selatan</option>
+                                        <option value="Sultengg">Sulawesi Tenggara</option>
+                                        <option value="Sulbar">Sulawesi Barat</option>
+                                        <option value="Gorontalo">Gorontalo</option>
+                                        <option value="Maluku">Maluku</option>
+                                        <option value="Maluku Utara">Maluku Utara</option>
+                                        <option value="Papua">Papua</option>
+                                        <option value="Papua Barat">Papua Barat</option>
+                                       
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="">Role: </label>
                                     <select name="level" id="" v-model="edit.role" class="form-control">
                                         <option value="">Select one</option>
@@ -404,6 +445,7 @@ export default {
                     this.edit.email = res.data.email;
                     this.edit.phone = res.data.phone;
                     this.edit.alamat = res.data.alamat;
+                    this.edit.provinsi = res.data.provinsi;
                     this.edit.role = res.data.role;
                     this.edit.kota = res.data.kota;
                     this.edit.image_name = res.data.image_name;
@@ -431,7 +473,7 @@ export default {
                     this.displayData();
                         Swal.fire(
                         `Success!`,
-                        `Successfully changed user data ${this.add.level}!`,
+                        `Successfully changed user data ${this.add.role}!`,
                         'success'
                         )
 

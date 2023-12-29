@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Laporan Transaksi</title>
+	<title>Transaction Reports</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 
 	<div class="container-fluid">
 		<center>
-			<a target="_blank" href="https://www.zuramai.net/">
+			<a target="_blank" href="https://aquacy.github.io/">
             </a>
-			<h4>Laporan Transaksi</h4>
+			<h4>Transaction Reports</h4>
 		</center>
 		<br/>
 		<table class='table table-bordered'>
 			<thead>
 				<tr>
 					<th>No</th>
-					<th>Tanggal</th>
-					<th>Produk</th>
-					<th>Total Harga</th>
+					<th>Date</th>
+					<th>Product</th>
+					<th>Total Price</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,12 +29,18 @@
                     <td>{{ $transaction->created_at }}</td>
                     <td>
                         <ul>
-                            @foreach($transaction->details as $detail)
-                            <li>{{ $detail->product->name }} ({{ $detail->quantity }} buah)</li>
-                            @endforeach
+						@foreach($transaction->details as $detail)
+							<li>
+								@if ($detail->product && $detail->product->name)
+									{{ $detail->product->name }} ({{ $detail->quantity }})
+								@else
+									Product Not Available
+								@endif
+							</li>
+						@endforeach
                         </ul>
                     </td>
-                    <td>Rp {{ number_format($transaction->total) }}</td>
+                    <td>Gh₵ {{ number_format($transaction->total) }}</td>
                 </tr>
             @endforeach
 			</tbody>

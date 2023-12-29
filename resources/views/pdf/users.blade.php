@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Laporan Pengguna</title>
+	<title>User Reports</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 
 	<div class="container-fluid">
 		<center>
-			<a target="_blank" href="https://www.zuramai.net/">
+			<a target="_blank" href="https://aquacy.github.io/">
             </a>
-			<h4>Daftar Pengguna</h4>
+			<h4>User List</h4>
 		</center>
 		<br/>
 		<table class='table table-bordered'>
@@ -18,10 +18,10 @@
 				<tr>
 					<th>No</th>
 					<th>Role</th>
-					<th>Nama</th>
+					<th>Name</th>
 					<th>Email</th>
-					<th>No Telp</th>
-					<th>Alamat</th>
+					<th>Telephone</th>
+					<th>Address</th>
 				</tr>
 			</thead>
 			<tbody>

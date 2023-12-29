@@ -4196,7 +4196,7 @@ __webpack_require__.r(__webpack_exports__);
     }];
     this.getTotalReport();
     setTimeout(function () {
-      _this.showTransactionChart('transaction-chart', _this.total.transactionChart, 'y', ['a'], ['Jumlah Penjualan: '], ['#5985ee']);
+      _this.showTransactionChart('transaction-chart', _this.total.transactionChart, 'y', ['a'], ['Number of Sales: '], ['#5985ee']);
     }, 2000);
   },
   data: function data() {
@@ -4226,6 +4226,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.total.category = res.data.total.category;
         _this2.total.product_sold = res.data.total.product_sold;
         _this2.total.product_sold_thismo = res.data.total.product_sold_thismo;
+        console.log(res);
 
         // this.showTransactionChart();
       })["catch"](function (err) {});
@@ -7101,7 +7102,7 @@ var render = function render() {
     attrs: {
       "for": ""
     }
-  }, [_vm._v("Nama/Kode Produk")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Name/Code of Product")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -7111,7 +7112,7 @@ var render = function render() {
     staticClass: "form-control",
     attrs: {
       type: "text",
-      placeholder: "Cari Kode Atau Nama Produk",
+      placeholder: "Search for codes or name of product",
       id: "kode-produk"
     },
     domProps: {
@@ -7149,7 +7150,7 @@ var render = function render() {
     attrs: {
       "for": ""
     }
-  }, [_vm._v("Jumlah Diskon (Dalam %): ")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Discount Amoint (in %): ")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -7191,7 +7192,7 @@ var render = function render() {
       role: "status",
       "aria-hidden": "true"
     }
-  }) : _vm._e(), _vm._v(" Tambah")])])])])])])]);
+  }) : _vm._e(), _vm._v(" Add")])])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -7208,7 +7209,7 @@ var staticRenderFns = [function () {
     staticClass: "col-md-8"
   }, [_c("h4", {
     staticClass: "page-title m-0"
-  }, [_vm._v("Diskon")])])])])])]);
+  }, [_vm._v("Discount")])])])])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -7218,7 +7219,7 @@ var staticRenderFns = [function () {
     staticClass: "col-8"
   }, [_c("h4", {
     staticClass: "mt-0 header-title"
-  }, [_vm._v("Daftar Semua Diskon")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("LIST OF ALL DISCOUNTS")])]), _vm._v(" "), _c("div", {
     staticClass: "col-4"
   }, [_c("div", {
     staticClass: "float-right d-none d-md-block"
@@ -7233,11 +7234,11 @@ var staticRenderFns = [function () {
     }
   }, [_c("i", {
     staticClass: "ti-plus mr-1"
-  }), _vm._v(" Tambah\n                                        ")])])])])]);
+  }), _vm._v(" Add\n                                        ")])])])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Produk")]), _vm._v(" "), _c("th", [_vm._v("Jumlah Diskon")]), _vm._v(" "), _c("th", [_vm._v("Status")]), _vm._v(" "), _c("th", [_vm._v("Aksi")])])]);
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Product")]), _vm._v(" "), _c("th", [_vm._v("Discount Amount")]), _vm._v(" "), _c("th", [_vm._v("Status")]), _vm._v(" "), _c("th", [_vm._v("Action")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -7248,7 +7249,7 @@ var staticRenderFns = [function () {
     attrs: {
       id: "exampleModalLabel"
     }
-  }, [_vm._v("Tambah Diskon Baru")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("Add New Discount")]), _vm._v(" "), _c("button", {
     staticClass: "close",
     attrs: {
       type: "button",
@@ -8369,27 +8370,27 @@ var render = function render() {
     staticClass: "table table-bordered"
   }, [_c("tbody", [_c("tr", [_c("td", {
     staticClass: "td-30"
-  }, [_vm._v("Total Produk: ")]), _vm._v(" "), _c("td", {
+  }, [_vm._v("Total Products: ")]), _vm._v(" "), _c("td", {
     staticClass: "td-70"
   }, [_vm._v(_vm._s(_vm.total.product))])]), _vm._v(" "), _c("tr", [_c("td", {
     staticClass: "td-30"
-  }, [_vm._v("Total Kategori Produk: ")]), _vm._v(" "), _c("td", {
+  }, [_vm._v("Total Product Categories: ")]), _vm._v(" "), _c("td", {
     staticClass: "td-70"
   }, [_vm._v(_vm._s(_vm.total.category))])]), _vm._v(" "), _c("tr", [_c("td", {
     staticClass: "td-30"
-  }, [_vm._v("Total Transaksi Bulan Ini: ")]), _vm._v(" "), _c("td", {
+  }, [_vm._v("Total Transactions This Month: ")]), _vm._v(" "), _c("td", {
     staticClass: "td-70"
   }, [_vm._v(_vm._s(_vm.total.transaction_thismo))])]), _vm._v(" "), _c("tr", [_c("td", {
     staticClass: "td-30"
-  }, [_vm._v("Total Keseluruhan Transaksi: ")]), _vm._v(" "), _c("td", {
+  }, [_vm._v("Total Transactions: ")]), _vm._v(" "), _c("td", {
     staticClass: "td-70"
   }, [_vm._v(_vm._s(_vm.total.transaction))])]), _vm._v(" "), _c("tr", [_c("td", {
     staticClass: "td-30"
-  }, [_vm._v("Total Produk Terjual: ")]), _vm._v(" "), _c("td", {
+  }, [_vm._v("Total Products Sold: ")]), _vm._v(" "), _c("td", {
     staticClass: "td-70"
   }, [_vm._v(_vm._s(_vm.total.product_sold))])]), _vm._v(" "), _c("tr", [_c("td", {
     staticClass: "td-30"
-  }, [_vm._v("Total Produk Terjual (Bulan ini): ")]), _vm._v(" "), _c("td", {
+  }, [_vm._v("Total Products Sold (This Month): ")]), _vm._v(" "), _c("td", {
     staticClass: "td-70"
   }, [_vm._v(_vm._s(_vm.total.product_sold_thismo))])]), _vm._v(" "), _c("tr", [_c("td", {
     staticClass: "td-30"
@@ -8415,7 +8416,7 @@ var render = function render() {
     staticClass: "table-responsive"
   }, [_c("table", {
     staticClass: "table table-bordered"
-  }, [_vm._m(3), _vm._v(" "), _c("tbody", [_c("tr", [_c("td", [_vm._v("1")]), _vm._v(" "), _c("td", [_vm._v("Laporan Transaksi")]), _vm._v(" "), _c("td", [_c("button", {
+  }, [_vm._m(3), _vm._v(" "), _c("tbody", [_c("tr", [_c("td", [_vm._v("1")]), _vm._v(" "), _c("td", [_vm._v("Transaction History")]), _vm._v(" "), _c("td", [_c("button", {
     staticClass: "btn btn-primary",
     attrs: {
       type: "button"
@@ -8430,7 +8431,7 @@ var render = function render() {
     attrs: {
       type: "button"
     }
-  }, [_vm._v("Excel")])])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("2")]), _vm._v(" "), _c("td", [_vm._v("Daftar Produk")]), _vm._v(" "), _c("td", [_c("button", {
+  }, [_vm._v("Excel")])])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("2")]), _vm._v(" "), _c("td", [_vm._v("Product List")]), _vm._v(" "), _c("td", [_c("button", {
     staticClass: "btn btn-primary",
     attrs: {
       type: "button"
@@ -8445,7 +8446,7 @@ var render = function render() {
     attrs: {
       type: "button"
     }
-  }, [_vm._v("Excel")])])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("3")]), _vm._v(" "), _c("td", [_vm._v("Daftar Pengguna")]), _vm._v(" "), _c("td", [_c("button", {
+  }, [_vm._v("Excel")])])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("3")]), _vm._v(" "), _c("td", [_vm._v("User List")]), _vm._v(" "), _c("td", [_c("button", {
     staticClass: "btn btn-primary",
     attrs: {
       type: "button"
@@ -8487,7 +8488,7 @@ var staticRenderFns = [function () {
     staticClass: "col-8"
   }, [_c("h4", {
     staticClass: "mt-0 header-title"
-  }, [_vm._v("Laporan")])])]);
+  }, [_vm._v("REPORT")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -8497,11 +8498,11 @@ var staticRenderFns = [function () {
     staticClass: "col-8"
   }, [_c("h4", {
     staticClass: "mt-0 header-title"
-  }, [_vm._v("Laporan Transaksi")])])]);
+  }, [_vm._v("Transaction Report")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Jenis Laporan")]), _vm._v(" "), _c("th", [_vm._v("Aksi")])])]);
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Report Type")]), _vm._v(" "), _c("th", [_vm._v("Action")])])]);
 }];
 render._withStripped = true;
 

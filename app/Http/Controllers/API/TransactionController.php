@@ -71,7 +71,7 @@ class TransactionController extends Controller
         $product->stock = $product->stock - $data_cart['quantity'];
         $product->save();
 
-        return response()->json(['status' => true, 'message' => '<b>Transaksi Sukses!</b> <br>Total Harga: <b>Rp'.number_format($totalPrice)."</b><br>Jumlah Bayar: <b>Rp ".number_format($r->bayar)."</b><br>Kembalian: <b>Rp ".number_format($r->kembalian)."</b><br>Invoice: <a href='".url("transaksi/invoice/".$order->invoice)."'>Klik Disini</a>"]);
+        return response()->json(['status' => true, 'message' => '<b>Transaction Successful!</b> <br>Total Price: <b>Rp'.number_format($totalPrice)."</b><br>Payment Amount: <b>Rp ".number_format($r->bayar)."</b><br>Kembalian: <b>Gh₵ ".number_format($r->kembalian)."</b><br>Invoice: <a href='".url("transaksi/invoice/".$order->invoice)."'>Click here</a>"]);
     }
 
     public function history(Request $request) {

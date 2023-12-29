@@ -4071,6 +4071,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       var price = this.edit.price;
       var stock = this.edit.stock;
       var photo = this.edit.photo;
+      var ppn = this.edit.ppn;
       axios.get("/api/v1/product/".concat(id, "/edit")).then(function (res) {
         console.log(res.data);
         _this3.edit.id = res.data.id;
@@ -4081,6 +4082,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         _this3.edit.price = res.data.price;
         _this3.edit.stock = res.data.stock;
         _this3.edit.photo = res.data.image_name;
+        _this3.edit.ppn = res.data.ppn;
         $("#modalEdit").modal('toggle');
       })["catch"](function (err) {
         console.log(err.response);
@@ -4095,6 +4097,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       var price = this.edit.price;
       var stock = this.edit.stock;
       var photo = this.edit.photo;
+      var ppn = this.edit.ppn;
       var formData = new FormData();
       formData.append('name', name);
       formData.append('description', description);
@@ -4103,6 +4106,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       formData.append('price', price);
       formData.append('stock', stock);
       formData.append('photo', photo);
+      formData.append('ppn', ppn);
       console.log(id);
       axios.post("/api/v1/product/".concat(id), formData, {
         headers: {
@@ -4112,7 +4116,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         console.log(res);
         _this4.displayData();
         $('#modalEdit').modal('toggle');
-        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire("Sukses!", "Sukses edit produk ".concat(_this4.edit.name, "!"), 'success');
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire("Success!", "Successful product editing ".concat(_this4.edit.name, "!"), 'success');
         _this4.edit.name = '';
         _this4.edit.description = '';
         _this4.edit.code = '';
@@ -4576,6 +4580,7 @@ __webpack_require__.r(__webpack_exports__);
       cart: [],
       productSearch: [],
       totalPrice: 0,
+      totalprices: 0,
       kembalian: 0,
       bayar: 0,
       error: false,
@@ -4612,7 +4617,7 @@ __webpack_require__.r(__webpack_exports__);
         return o.id === array.id;
       });
       if (obj !== undefined) {
-        alertify.error('Barang sudah ditambahkan');
+        alertify.error('Items have been added');
       } else {
         this.cart.push(array);
       }
@@ -4633,17 +4638,26 @@ __webpack_require__.r(__webpack_exports__);
       this.countTotalPrice();
     },
     countTotalPrice: function countTotalPrice() {
-      this.totalPrice = 0;
-      var totalPrice = 0;
-      this.cart.forEach(function (data_cart, index) {
-        var realPrice = parseInt(data_cart.realPrice + data_cart.ppn / 100 * data_cart.realPrice);
+      this.totalPrice = this.cart.reduce(function (total, data_cart) {
+        var realPrice = parseFloat(data_cart.realPrice + data_cart.ppn / 100 * data_cart.realPrice);
         var quantity = parseInt(data_cart.quantity);
-        var total = realPrice * quantity;
-        totalPrice += total;
-      });
-      this.totalPrice = totalPrice;
+        return total + realPrice * quantity;
+      }, 0);
       this.hitungKembalian();
     },
+    // Depreciated for calculating the VAT for the products
+    // countTotalPrice() {
+    //     this.totalPrice = 0;
+    //     let totalPrice = 0;
+    //     this.cart.forEach((data_cart, index) => {
+    //         let realPrice = parseInt(data_cart.realPrice + (data_cart.ppn/100 * data_cart.realPrice));
+    //         let quantity =  parseInt(data_cart.quantity);
+    //         let total = realPrice * quantity;
+    //         totalPrice += total;
+    //     })
+    //     this.totalPrice = totalPrice;
+    //     this.hitungKembalian();
+    // },
     deleteCart: function deleteCart(index) {
       this.cart.splice(index, 1);
       this.qty.splice(index, 1);
@@ -4691,7 +4705,7 @@ __webpack_require__.r(__webpack_exports__);
     showKeteranganModal: function showKeteranganModal() {
       var _this3 = this;
       if (this.bayar < this.totalPrice) {
-        this.error = "Minimal bayar adalah Rp ".concat(this.totalPrice);
+        this.error = "Minimum payment is Gh\u20B5 ".concat(this.totalPrice);
         return;
       }
       axios.get('/api/v1/payment-method').then(function (res) {
@@ -9948,7 +9962,7 @@ var staticRenderFns = [function () {
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Product")]), _vm._v(" "), _c("th", [_vm._v("Customer")]), _vm._v(" "), _c("th", [_vm._v("Total Harga")]), _vm._v(" "), _c("th", [_vm._v("Tanggal")]), _vm._v(" "), _c("th", [_vm._v("Aksi")])])]);
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Product")]), _vm._v(" "), _c("th", [_vm._v("Customer")]), _vm._v(" "), _c("th", [_vm._v("Total Price")]), _vm._v(" "), _c("th", [_vm._v("Date")]), _vm._v(" "), _c("th", [_vm._v("Action")])])]);
 }];
 render._withStripped = true;
 
@@ -9985,7 +9999,7 @@ var render = function render() {
     attrs: {
       "for": ""
     }
-  }, [_vm._v("Kode Produk")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Product Code")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -9995,7 +10009,7 @@ var render = function render() {
     staticClass: "form-control",
     attrs: {
       type: "text",
-      placeholder: "Search for codes or product names",
+      placeholder: "Use scanner to search for codes or product names",
       id: "kode-produk"
     },
     domProps: {
@@ -10048,11 +10062,11 @@ var render = function render() {
     }
   }) : _vm._e(), _vm._v(" "), _vm._m(2), _vm._v(" "), _c("div", {
     staticClass: "float-right mb-2"
-  }, [_c("h5", [_vm._v("Total Harga: "), _c("span", {
+  }, [_c("h5", [_vm._v("Total Price: "), _c("span", {
     attrs: {
       id: "rp"
     }
-  }, [_vm._v("Rp "), _c("span", {
+  }, [_vm._v("Gh₵ "), _c("span", {
     attrs: {
       id: "total-price",
       "data-value": "0"
@@ -10099,9 +10113,9 @@ var render = function render() {
           _vm.$set(_vm.qty, index, $event.target.value);
         }
       }
-    })]), _vm._v(" "), _c("td", [_vm._v("\n                                            " + _vm._s(product.stock) + "\n                                        ")]), _vm._v(" "), _c("td", [_vm._v("\n                                            Rp " + _vm._s(_vm.formatPrice(product.realPrice)) + " "), product.discount !== null ? _c("span", {
+    })]), _vm._v(" "), _c("td", [_vm._v("\n                                            " + _vm._s(product.stock) + "\n                                        ")]), _vm._v(" "), _c("td", [_vm._v("\n                                            Gh₵ " + _vm._s(_vm.formatPrice(product.realPrice)) + " "), product.discount !== null ? _c("span", {
       staticClass: "text-success"
-    }, [_vm._v("DISKON!")]) : _vm._e()]), _vm._v(" "), _c("td", [_vm._v("\n                                            Rp " + _vm._s(_vm.formatPrice(product.ppn / 100 * product.realPrice)) + " \n                                        ")]), _vm._v(" "), _c("td", [_vm._v("\n                                            Rp " + _vm._s(_vm.formatPrice(product.price + product.ppn / 100 * product.price)) + "\n                                        ")]), _vm._v(" "), _c("td", [_c("button", {
+    }, [_vm._v("Discount!")]) : _vm._e()]), _vm._v(" "), _c("td", [_vm._v("\n                                            Gh₵ " + _vm._s(_vm.formatPrice(product.ppn / 100 * product.realPrice)) + "\n                                        ")]), _vm._v(" "), _c("td", [_vm._v("\n                                            Gh₵ " + _vm._s(_vm.formatPrice(product.price + product.ppn / 100 * product.price)) + "\n                                        ")]), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-danger btn-sm",
       attrs: {
         type: "button"
@@ -10120,7 +10134,7 @@ var render = function render() {
     staticClass: "col-md-6 offset-md-6"
   }, [_c("div", {
     staticClass: "form-group mt-3"
-  }, [_c("label", [_vm._v("Nominal Bayar")]), _vm._v(" "), _c("input", {
+  }, [_c("label", [_vm._v("Amount Paid")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -10152,7 +10166,7 @@ var render = function render() {
     staticClass: "invalid-feedback"
   }, [_vm._v("\n                                            " + _vm._s(_vm.error) + "\n                                        ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "form-group mt-3"
-  }, [_c("label", [_vm._v("Kembalian")]), _vm._v(" "), _c("input", {
+  }, [_c("label", [_vm._v("Return")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -10185,7 +10199,7 @@ var render = function render() {
         return _vm.showKeteranganModal();
       }
     }
-  }, [_vm._v("Proses")]) : _vm._e()])])])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Process")]) : _vm._e()])])])])])]), _vm._v(" "), _c("div", {
     staticClass: "modal fade",
     attrs: {
       id: "keteranganModal",
@@ -10246,7 +10260,7 @@ var render = function render() {
     attrs: {
       value: ""
     }
-  }, [_vm._v("Pilih customer..")]), _vm._v(" "), _vm._l(this.customers, function (customer) {
+  }, [_vm._v("Select customer..")]), _vm._v(" "), _vm._l(this.customers, function (customer) {
     return _c("option", {
       key: customer.id,
       domProps: {
@@ -10259,7 +10273,7 @@ var render = function render() {
     attrs: {
       "for": ""
     }
-  }, [_vm._v("Metode Pembayaran: ")]), _vm._v(" "), _c("select", {
+  }, [_vm._v("Payment method: ")]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -10326,11 +10340,11 @@ var staticRenderFns = [function () {
     staticClass: "col-8"
   }, [_c("h4", {
     staticClass: "mt-0 header-title"
-  }, [_vm._v("Daftar Pembelian")])])]);
+  }, [_vm._v("Purchase List")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("No")]), _vm._v(" "), _c("th", [_vm._v("Nama Produk")]), _vm._v(" "), _c("th", [_vm._v("Jumlah")]), _vm._v(" "), _c("th", [_vm._v("Sisa Stok")]), _vm._v(" "), _c("th", [_vm._v("Harga")]), _vm._v(" "), _c("th", [_vm._v("PPN")]), _vm._v(" "), _c("th", [_vm._v("Total Harga")]), _vm._v(" "), _c("th")])]);
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("No")]), _vm._v(" "), _c("th", [_vm._v("Product Name")]), _vm._v(" "), _c("th", [_vm._v("Amount")]), _vm._v(" "), _c("th", [_vm._v("Remaining Stock")]), _vm._v(" "), _c("th", [_vm._v("Price")]), _vm._v(" "), _c("th", [_vm._v("VAT")]), _vm._v(" "), _c("th", [_vm._v("Total Price")]), _vm._v(" "), _c("th")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -10341,7 +10355,7 @@ var staticRenderFns = [function () {
     attrs: {
       id: "exampleModalLabel"
     }
-  }, [_vm._v("Isi Data")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("Fill in Data")]), _vm._v(" "), _c("button", {
     staticClass: "close",
     attrs: {
       type: "button",
@@ -10369,7 +10383,7 @@ var staticRenderFns = [function () {
     attrs: {
       type: "submit"
     }
-  }, [_vm._v("Selesai")])]);
+  }, [_vm._v("Finished")])]);
 }];
 render._withStripped = true;
 

@@ -120,6 +120,7 @@ class ProductController extends Controller
             'category' => 'required|exists:categories,id',
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
+            'ppn' => 'required|numeric',
             // 'photo' => 'nullable|image'
         ]);
 
@@ -132,6 +133,7 @@ class ProductController extends Controller
         $update->price = $request->price;
         $update->stock = $request->stock;
         $update->category_id = $request->category;
+        $update->ppn = $request->ppn;
         if($request->hasFile('photo')) {
             $photo = $request->file('photo');
             $image_name = $photo->getClientOriginalName();

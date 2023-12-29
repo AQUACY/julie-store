@@ -375,6 +375,7 @@ export default {
             let price = this.edit.price;
             let stock = this.edit.stock;
             let photo = this.edit.photo;
+            let ppn = this.edit.ppn;
 
             axios.get(`/api/v1/product/${id}/edit`)
                 .then(res => {
@@ -388,6 +389,7 @@ export default {
                     this.edit.price = res.data.price;
                     this.edit.stock = res.data.stock;
                     this.edit.photo = res.data.image_name;
+                    this.edit.ppn = res.data.ppn;
 
                     $("#modalEdit").modal('toggle');
                 }).catch(err => {
@@ -403,7 +405,8 @@ export default {
             let category = this.edit.category;
             let price = this.edit.price;
             let stock = this.edit.stock;
-            let photo = this.edit.photo
+            let photo = this.edit.photo;
+            let ppn = this.edit.ppn;
 
             let formData = new FormData();
             formData.append('name', name);
@@ -413,6 +416,7 @@ export default {
             formData.append('price', price);
             formData.append('stock', stock);
             formData.append('photo', photo);
+            formData.append('ppn', ppn);
 
             console.log(id);
             axios.post(`/api/v1/product/${id}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
@@ -421,8 +425,8 @@ export default {
                     this.displayData();
                     $('#modalEdit').modal('toggle');
                     Swal.fire(
-                        `Sukses!`,
-                        `Sukses edit produk ${this.edit.name}!`,
+                        `Success!`,
+                        `Successful product editing ${this.edit.name}!`,
                         'success'
                     )
                     this.edit.name = '';

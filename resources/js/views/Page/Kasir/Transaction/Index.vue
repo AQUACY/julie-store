@@ -27,8 +27,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="">Kode Produk</label>
-                        <input type="text" class="form-control" placeholder="Search for codes or product names" id="kode-produk" v-model="search" @keyup="searchProduct()">
+                        <label for="">Product Code</label>
+                        <input type="text" class="form-control" placeholder="Use scanner to search for codes or product names" id="kode-produk" v-model="search" @keyup="searchProduct()">
                         <div class="dropdown-search">
                             <ul>
                                 <li v-for="data in productSearch" :key="data.id" @click="addProductToCart(data)"><img :src="`/images/products/${data.image_name}`" alt="" class='dropdown-image'><span><b>{{ data.code.toUpperCase() }}</b> - {{ data.name }}</span></li>
@@ -49,11 +49,11 @@
                     <div class="alert alert-success" v-if="successMsg !== ''" v-html="successMsg"></div>
                     <div class="row mb-3">
                         <div class="col-8">
-                            <h4 class="mt-0 header-title">Daftar Pembelian</h4>
+                            <h4 class="mt-0 header-title">Purchase List</h4>
                         </div>
                     </div>
                     <div class="float-right mb-2">
-                        <h5>Total Harga: <span id="rp">Rp <span id="total-price" data-value='0'>{{ formatPrice(totalPrice) }}</span></span></h5>
+                        <h5>Total Price: <span id="rp">Gh₵ <span id="total-price" data-value='0'>{{ formatPrice(totalPrice) }}</span></span></h5>
                     </div>
                     <form action="" method="post" id="form-transaction">
                         <div class="table-responsive">
@@ -61,12 +61,12 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Produk</th>
-                                        <th>Jumlah</th>
-                                        <th>Sisa Stok</th>
-                                        <th>Harga</th>
-                                        <th>PPN</th>
-                                        <th>Total Harga</th>
+                                        <th>Product Name</th>
+                                        <th>Amount</th>
+                                        <th>Remaining Stock</th>
+                                        <th>Price</th>
+                                        <th>VAT</th>
+                                        <th>Total Price</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -81,13 +81,13 @@
                                             {{ product.stock }}
                                         </td>
                                         <td>
-                                            Rp {{ formatPrice(product.realPrice) }} <span class='text-success' v-if="product.discount !== null">DISKON!</span>
+                                            Gh₵ {{ formatPrice(product.realPrice) }} <span class='text-success' v-if="product.discount !== null">Discount!</span>
                                         </td>
                                         <td>
-                                            Rp {{ formatPrice(product.ppn/100 * product.realPrice) }} 
+                                            Gh₵ {{ formatPrice((product.ppn / 100) * product.realPrice) }}
                                         </td>
                                         <td>
-                                            Rp {{ formatPrice(product.price + (product.ppn/100 * product.price)) }}
+                                            Gh₵ {{ formatPrice(product.price + (product.ppn/100 * product.price)) }}
                                         </td>
                                         <td>
                                             <button type="button" @click="deleteCart(index)" class='btn btn-danger btn-sm'><i class="fas fa-trash"></i></button>
@@ -101,19 +101,19 @@
                             <div class='row' v-if="this.cart.length >= 1">
                                 <div class='col-md-6 offset-md-6'>
                                     <div class='form-group  mt-3'>
-                                        <label>Nominal Bayar</label>
+                                        <label>Amount Paid</label>
                                         <input type='number' :class='{"form-control":true, "is-invalid": this.error}' id='nomi  nal-bayar' name='nominal_bayar' @keyup='hitungKembalian()' v-model="bayar">
                                         <div class="invalid-feedback" v-if="this.error">
                                             {{error}}
                                         </div>
                                     </div>
                                     <div class='form-group  mt-3'>
-                                        <label>Kembalian</label>
+                                        <label>Return</label>
                                         <input type='number' class='form-control' id='kembalian' name='kembalian' readonly v-model="kembalian">
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-primary float-right" type="button"  v-if="this.cart.length >= 1" @click="showKeteranganModal()">Proses</button>
+                            <button class="btn btn-primary float-right" type="button"  v-if="this.cart.length >= 1" @click="showKeteranganModal()">Process</button>
                         </div>
                     </form>
                 </div>
@@ -127,7 +127,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Isi Data</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Fill in Data</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -137,12 +137,12 @@
 							<div class="form-group">
 								<label for="">Customer: </label>
 								<select name="" id="" class="form-control" v-model="customer">
-									<option value="">Pilih customer..</option>
+									<option value="">Select customer..</option>
 									<option  v-for="customer in this.customers" :key="customer.id" :value="customer.id">{{ customer.name }}</option>
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="">Metode Pembayaran: </label>
+								<label for="">Payment method: </label>
 								<select name="" id="" class="form-control" v-model="payment_method">
 									<option  v-for="payment_method in payment_methods" :key="payment_method.id" :value="payment_method.id">{{ payment_method.name }}</option>
 								</select>
@@ -150,7 +150,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Selesai</button>
+						<button type="submit" class="btn btn-primary">Finished</button>
 					</div>
 				</form>
             </div>
@@ -175,6 +175,7 @@ export default {
             cart: [],
             productSearch: [],
             totalPrice: 0,
+            totalprices: 0,
             kembalian: 0,
             bayar: 0,
             error: false,
@@ -212,7 +213,7 @@ export default {
             let obj = this.cart.find(o => o.id === array.id);
 
             if(obj !== undefined) {
-                alertify.error('Barang sudah ditambahkan');
+                alertify.error('Items have been added');
             }else{
                 this.cart.push(array);
             }
@@ -235,22 +236,33 @@ export default {
 
             this.countTotalPrice();
         },
-
         countTotalPrice() {
-            this.totalPrice = 0;
-            let totalPrice = 0;
-            this.cart.forEach((data_cart, index) => {
-                let realPrice = parseInt(data_cart.realPrice + (data_cart.ppn/100 * data_cart.realPrice));
-                let quantity =  parseInt(data_cart.quantity);
+            this.totalPrice = this.cart.reduce((total, data_cart) => {
+                let realPrice = parseFloat(data_cart.realPrice + (data_cart.ppn/100 * data_cart.realPrice));
+                let quantity = parseInt(data_cart.quantity);
 
+                return total + realPrice * quantity;
+            }, 0);
 
-                let total = realPrice * quantity;
-                totalPrice += total;
-            })
-
-            this.totalPrice = totalPrice;
             this.hitungKembalian();
         },
+// Depreciated for calculating the VAT for the products
+        // countTotalPrice() {
+        //     this.totalPrice = 0;
+        //     let totalPrice = 0;
+        //     this.cart.forEach((data_cart, index) => {
+        //         let realPrice = parseInt(data_cart.realPrice + (data_cart.ppn/100 * data_cart.realPrice));
+        //         let quantity =  parseInt(data_cart.quantity);
+
+
+        //         let total = realPrice * quantity;
+        //         totalPrice += total;
+        //     })
+
+        //     this.totalPrice = totalPrice;
+           
+        //     this.hitungKembalian();
+        // },
 
         deleteCart(index) {
             this.cart.splice(index,1)
@@ -309,7 +321,7 @@ export default {
 
         showKeteranganModal() {
 			if(this.bayar < this.totalPrice) {
-				this.error = `Minimal bayar adalah Rp ${this.totalPrice}`;
+				this.error = `Minimum payment is Gh₵ ${this.totalPrice}`;
 				return;
             }
             axios.get('/api/v1/payment-method')

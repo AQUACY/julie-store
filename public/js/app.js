@@ -3982,7 +3982,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         description: '',
         image_name: '',
         photo: '',
-        ppn: ''
+        ppn: '',
+        buy_price: ''
       },
       add: {
         name: '',
@@ -3992,7 +3993,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         category: '',
         photo: '',
         image_name: '',
-        ppn: ''
+        ppn: '',
+        buy_price: ''
       },
       search: '',
       description: ''
@@ -4027,6 +4029,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       var ppn = this.add.ppn;
       var stock = this.add.stock;
       var photo = this.add.photo;
+      var buy_price = this.add.buy_price;
       var formData = new FormData();
       formData.append('name', name);
       formData.append('description', description);
@@ -4036,6 +4039,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       formData.append('ppn', ppn);
       formData.append('stock', stock);
       formData.append('photo', photo);
+      formData.append('buy_price', buy_price);
       axios.post('/api/v1/product', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -4044,7 +4048,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         console.log(res);
         _this2.displayData();
         $('#modalAdd').modal('toggle');
-        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire("Sukses!", "Sukses tambah produk ".concat(_this2.add.name, "!"), 'success');
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire("Success!", "Successfully added products ".concat(_this2.add.name, "!"), 'success');
         _this2.add.name = '';
         _this2.add.description = '';
         _this2.add.code = '';
@@ -4052,6 +4056,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         _this2.add.price = '';
         _this2.add.stock = '';
         _this2.add.photo = '';
+        _this2.add.buy_price = '';
         _this2.errors = [];
       })["catch"](function (err) {
         console.log(err.response.data);
@@ -4072,6 +4077,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       var stock = this.edit.stock;
       var photo = this.edit.photo;
       var ppn = this.edit.ppn;
+      var buy_price = this.edit.buy_price;
       axios.get("/api/v1/product/".concat(id, "/edit")).then(function (res) {
         console.log(res.data);
         _this3.edit.id = res.data.id;
@@ -4083,6 +4089,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         _this3.edit.stock = res.data.stock;
         _this3.edit.photo = res.data.image_name;
         _this3.edit.ppn = res.data.ppn;
+        _this3.edit.buy_price = res.data.buy_price;
         $("#modalEdit").modal('toggle');
       })["catch"](function (err) {
         console.log(err.response);
@@ -4098,6 +4105,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       var stock = this.edit.stock;
       var photo = this.edit.photo;
       var ppn = this.edit.ppn;
+      var buy_price = this.edit.buy_price;
       var formData = new FormData();
       formData.append('name', name);
       formData.append('description', description);
@@ -4107,6 +4115,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       formData.append('stock', stock);
       formData.append('photo', photo);
       formData.append('ppn', ppn);
+      formData.append('buy_price', buy_price);
       console.log(id);
       axios.post("/api/v1/product/".concat(id), formData, {
         headers: {
@@ -7828,7 +7837,36 @@ var render = function render() {
     attrs: {
       "for": "email"
     }
-  }, [_vm._v("Price")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Bought Price")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.add.buy_price,
+      expression: "add.buy_price"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      id: "price",
+      type: "number",
+      name: "price",
+      placeholder: "Bought Price"
+    },
+    domProps: {
+      value: _vm.add.buy_price
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.add, "buy_price", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "email"
+    }
+  }, [_vm._v("Selling Price")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -7840,7 +7878,7 @@ var render = function render() {
       id: "price",
       type: "number",
       name: "price",
-      placeholder: "Harga"
+      placeholder: "Selling Price"
     },
     domProps: {
       value: _vm.add.price
@@ -8108,7 +8146,36 @@ var render = function render() {
     attrs: {
       "for": "email"
     }
-  }, [_vm._v("Price")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Bought Price")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.edit.buy_price,
+      expression: "edit.buy_price"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      id: "price",
+      type: "number",
+      name: "price",
+      placeholder: "Bought Price"
+    },
+    domProps: {
+      value: _vm.edit.buy_price
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.edit, "buy_price", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "email"
+    }
+  }, [_vm._v("Selling Price")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",

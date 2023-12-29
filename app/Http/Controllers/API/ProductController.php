@@ -46,7 +46,8 @@ class ProductController extends Controller
             'category' => 'required|exists:categories,id',
             'description' => 'required',
             'price' => 'required|integer',
-            'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'buy_price' => 'required|integer',
         ]);
 
         // dd($photo->getClientOriginalName());
@@ -59,6 +60,7 @@ class ProductController extends Controller
         $product = new Product;
         $product->uuid = Uuid::uuid4();
         $product->name = $request->name;
+        $product->buy_price = $request->buy_price;  //added with respect to the clients request
         $product->code = $request->code;
         $product->stock = $request->stock;
         $product->description = $request->description;
@@ -119,6 +121,7 @@ class ProductController extends Controller
             'code' => 'required|string',
             'category' => 'required|exists:categories,id',
             'price' => 'required|numeric',
+            'buy_price' => 'required|numeric',
             'stock' => 'required|numeric',
             'ppn' => 'required|numeric',
             // 'photo' => 'nullable|image'
@@ -131,6 +134,7 @@ class ProductController extends Controller
         $update->description = $request->description;
         $update->code = $request->code;
         $update->price = $request->price;
+        $update->buy_price = $request->buy_price;
         $update->stock = $request->stock;
         $update->category_id = $request->category;
         $update->ppn = $request->ppn;

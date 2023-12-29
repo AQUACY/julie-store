@@ -140,9 +140,14 @@
                              
                                 </div>
                                 <div class="form-group">
-                                    <label for="email">Price</label>
+                                    <label for="email">Bought Price</label>
                                     <input id="price" type="number" class="form-control"
-                                        name="price" placeholder="Harga" v-model="add.price" >
+                                        name="price" placeholder="Bought Price" v-model="add.buy_price" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Selling Price</label>
+                                    <input id="price" type="number" class="form-control"
+                                        name="price" placeholder="Selling Price" v-model="add.price" >
                                 </div>
                                 <div class="form-group">
                                     <label for="email">VAT</label>
@@ -219,7 +224,12 @@
                             
                             </div>
                             <div class="form-group">
-                                <label for="email">Price</label>
+                                    <label for="email">Bought Price</label>
+                                    <input id="price" type="number" class="form-control"
+                                        name="price" placeholder="Bought Price" v-model="edit.buy_price" >
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Selling Price</label>
                                 <input id="price" type="number" class="form-control"
                                     name="price" placeholder="Price" v-model="edit.price" >
                             </div>
@@ -277,6 +287,7 @@ export default {
                 image_name: '',
                 photo: '',
                 ppn:'',
+                buy_price:'',
             },
             add: {
                 name: '',
@@ -287,6 +298,7 @@ export default {
                 photo: '',
                 image_name: '',
                 ppn:'',
+                buy_price:'',
             },
             search: '',
             description: '',
@@ -325,7 +337,8 @@ export default {
             let price = this.add.price;
             let ppn = this.add.ppn;
             let stock = this.add.stock;
-            let photo = this.add.photo
+            let photo = this.add.photo;
+            let buy_price = this.add.buy_price;
 
             let formData = new FormData();
             formData.append('name', name);
@@ -336,6 +349,7 @@ export default {
             formData.append('ppn', ppn);
             formData.append('stock', stock);
             formData.append('photo', photo);
+            formData.append('buy_price', buy_price);
 
 
             axios.post('/api/v1/product', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
@@ -344,8 +358,8 @@ export default {
                     this.displayData();
                     $('#modalAdd').modal('toggle');
                     Swal.fire(
-                        `Sukses!`,
-                        `Sukses tambah produk ${this.add.name}!`,
+                        `Success!`,
+                        `Successfully added products ${this.add.name}!`,
                         'success'
                     )
                     this.add.name = '';
@@ -355,6 +369,7 @@ export default {
                     this.add.price = '';
                     this.add.stock = '';
                     this.add.photo = '';
+                    this.add.buy_price = '';
                     this.errors = [];
 
                 }).catch(err => {
@@ -376,6 +391,7 @@ export default {
             let stock = this.edit.stock;
             let photo = this.edit.photo;
             let ppn = this.edit.ppn;
+            let buy_price = this.edit.buy_price;
 
             axios.get(`/api/v1/product/${id}/edit`)
                 .then(res => {
@@ -390,6 +406,7 @@ export default {
                     this.edit.stock = res.data.stock;
                     this.edit.photo = res.data.image_name;
                     this.edit.ppn = res.data.ppn;
+                    this.edit.buy_price = res.data.buy_price;
 
                     $("#modalEdit").modal('toggle');
                 }).catch(err => {
@@ -407,6 +424,7 @@ export default {
             let stock = this.edit.stock;
             let photo = this.edit.photo;
             let ppn = this.edit.ppn;
+            let buy_price = this.edit.buy_price;
 
             let formData = new FormData();
             formData.append('name', name);
@@ -417,6 +435,8 @@ export default {
             formData.append('stock', stock);
             formData.append('photo', photo);
             formData.append('ppn', ppn);
+            formData.append('buy_price', buy_price);
+
 
             console.log(id);
             axios.post(`/api/v1/product/${id}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })

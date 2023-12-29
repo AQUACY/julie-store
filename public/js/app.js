@@ -3758,7 +3758,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       }).then(function (res) {
         $('#modalEdit').modal('toggle');
         _this4.displayData();
-        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire("Success!", "Successfully changed user data ".concat(_this4.add.level, "!"), 'success');
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire("Success!", "Successfully changed user data ".concat(_this4.add.role, "!"), 'success');
       })["catch"](function (error) {
         var statusCode = error.response.status;
         if (statusCode == 500) {
@@ -4138,13 +4138,13 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       });
     },
     deleteProduct: function deleteProduct(id) {
-      alertify.confirm("Anda yakin ingin menghapus?", function (ev) {
+      alertify.confirm("Are you sure you want to delete?", function (ev) {
         ev.preventDefault();
         var that = this;
         axios["delete"]("/api/v1/product/".concat(id)).then(function (res) {
           console.log(res);
           that.displayData();
-          alertify.success("Berhasil hapus produk!");
+          alertify.success("Successfully deleted product!");
         });
       });
     },
@@ -6422,7 +6422,7 @@ var render = function render() {
     attrs: {
       "for": ""
     }
-  }, [_vm._v("Role: ")]), _vm._v(" "), _c("select", {
+  }, [_vm._v("City : ")]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -7528,8 +7528,8 @@ var render = function render() {
     staticClass: "form-control",
     attrs: {
       type: "text",
-      placeholder: "Cari Nama Kategori",
-      "aria-label": "Cari Nama Kategori",
+      placeholder: "Search Category Name",
+      "aria-label": "Search Category Name",
       "aria-describedby": "basic-addon1"
     },
     domProps: {
@@ -7558,7 +7558,7 @@ var render = function render() {
         src: "/images/products/".concat(product.image_name),
         alt: "Gambar"
       }
-    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(product.name))])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.stock))]), _vm._v(" "), _c("td", [_vm._v("Rp " + _vm._s(_vm.formatPrice(product.price)))]), _vm._v(" "), _c("td", [_c("button", {
+    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(product.name))])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.stock))]), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.formatPrice(product.price)))]), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-warning",
       attrs: {
         type: "button"
@@ -7578,7 +7578,7 @@ var render = function render() {
           return _vm.deleteProduct(product.id);
         }
       }
-    }, [_vm._v("Hapus")])])]);
+    }, [_vm._v("Delete")])])]);
   }), 0)])]), _vm._v(" "), _c("nav", {
     staticClass: "float-right",
     attrs: {
@@ -7655,7 +7655,7 @@ var render = function render() {
     attrs: {
       "for": "name"
     }
-  }, [_vm._v("Nama Produk")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Name of Product")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -7668,7 +7668,7 @@ var render = function render() {
       type: "text",
       name: "name",
       autofocus: "",
-      placeholder: "Nama produk"
+      placeholder: "Name of Product"
     },
     domProps: {
       value: _vm.add.name
@@ -7685,7 +7685,7 @@ var render = function render() {
     attrs: {
       "for": "code"
     }
-  }, [_vm._v("Kode Produk")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Code of Product")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -7698,7 +7698,7 @@ var render = function render() {
       type: "text",
       name: "code",
       autofocus: "",
-      placeholder: "Kode produk"
+      placeholder: "Use the scanner to add code"
     },
     domProps: {
       value: _vm.add.code
@@ -7715,7 +7715,7 @@ var render = function render() {
     attrs: {
       "for": "last_name"
     }
-  }, [_vm._v("Kategori")]), _vm._v(" "), _c("select", {
+  }, [_vm._v("Category")]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -7742,7 +7742,7 @@ var render = function render() {
     attrs: {
       value: ""
     }
-  }, [_vm._v("Pilih salah satu..")]), _vm._v(" "), _vm._l(this.categories, function (category) {
+  }, [_vm._v("Select One..")]), _vm._v(" "), _vm._l(this.categories, function (category) {
     return _c("option", {
       key: category.id,
       domProps: {
@@ -7755,7 +7755,7 @@ var render = function render() {
     attrs: {
       "for": ""
     }
-  }, [_vm._v("Deskripsi")]), _vm._v(" "), _c("textarea", {
+  }, [_vm._v("Description")]), _vm._v(" "), _c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -7813,7 +7813,7 @@ var render = function render() {
     attrs: {
       "for": "email"
     }
-  }, [_vm._v("Harga")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Price")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -7842,7 +7842,7 @@ var render = function render() {
     attrs: {
       "for": "email"
     }
-  }, [_vm._v("PPN")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("VAT")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -7854,7 +7854,7 @@ var render = function render() {
       id: "ppn",
       type: "number",
       name: "ppn",
-      placeholder: "PPN (Dalam %)"
+      placeholder: "VAT (%)"
     },
     domProps: {
       value: _vm.add.ppn
@@ -7871,7 +7871,7 @@ var render = function render() {
     attrs: {
       "for": ""
     }
-  }, [_vm._v("Gambar")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Picture")]), _vm._v(" "), _c("div", {
     staticClass: "input-group mb-3"
   }, [_vm._m(5), _vm._v(" "), _c("div", {
     staticClass: "custom-file"
@@ -7893,7 +7893,7 @@ var render = function render() {
     attrs: {
       "for": "inputGroupFile01"
     }
-  }, [_vm._v("Pilih gambar")])])])])]), _vm._v(" "), _vm._m(6)])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Browse")])])])])]), _vm._v(" "), _vm._m(6)])])])]), _vm._v(" "), _c("div", {
     staticClass: "modal fade",
     attrs: {
       id: "modalEdit",
@@ -7935,7 +7935,7 @@ var render = function render() {
     attrs: {
       "for": "name"
     }
-  }, [_vm._v("Nama Produk")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Name of Product")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -7965,7 +7965,7 @@ var render = function render() {
     attrs: {
       "for": "code"
     }
-  }, [_vm._v("Kode Produk")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Code of Product")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -7978,7 +7978,7 @@ var render = function render() {
       type: "text",
       name: "code",
       autofocus: "",
-      placeholder: "Kode produk"
+      placeholder: "Use scanner to add code"
     },
     domProps: {
       value: _vm.edit.code
@@ -7995,7 +7995,7 @@ var render = function render() {
     attrs: {
       "for": "last_name"
     }
-  }, [_vm._v("Kategori")]), _vm._v(" "), _c("select", {
+  }, [_vm._v("Category")]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -8022,7 +8022,7 @@ var render = function render() {
     attrs: {
       value: ""
     }
-  }, [_vm._v("Pilih salah satu..")]), _vm._v(" "), _vm._l(this.categories, function (category) {
+  }, [_vm._v("Select One..")]), _vm._v(" "), _vm._l(this.categories, function (category) {
     return _c("option", {
       key: category.id,
       domProps: {
@@ -8035,7 +8035,7 @@ var render = function render() {
     attrs: {
       "for": ""
     }
-  }, [_vm._v("Deskripsi")]), _vm._v(" "), _c("textarea", {
+  }, [_vm._v("Description")]), _vm._v(" "), _c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -8076,7 +8076,7 @@ var render = function render() {
       id: "stock",
       type: "number",
       name: "stock",
-      placeholder: "Stok barang"
+      placeholder: "Stock balance"
     },
     domProps: {
       value: _vm.edit.stock
@@ -8093,7 +8093,7 @@ var render = function render() {
     attrs: {
       "for": "email"
     }
-  }, [_vm._v("Harga")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Price")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -8105,7 +8105,7 @@ var render = function render() {
       id: "price",
       type: "number",
       name: "price",
-      placeholder: "Harga"
+      placeholder: "Price"
     },
     domProps: {
       value: _vm.edit.price
@@ -8122,7 +8122,7 @@ var render = function render() {
     attrs: {
       "for": "email"
     }
-  }, [_vm._v("PPN")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("VAT")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -8134,7 +8134,7 @@ var render = function render() {
       id: "price",
       type: "number",
       name: "ppn",
-      placeholder: "Harga"
+      placeholder: "VAT"
     },
     domProps: {
       value: _vm.edit.ppn
@@ -8151,7 +8151,7 @@ var render = function render() {
     attrs: {
       "for": ""
     }
-  }, [_vm._v("Gambar")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Picture")]), _vm._v(" "), _c("div", {
     staticClass: "input-group mb-3"
   }, [_vm._m(8), _vm._v(" "), _c("div", {
     staticClass: "custom-file"
@@ -8173,7 +8173,7 @@ var render = function render() {
     attrs: {
       "for": "inputGroupFile01"
     }
-  }, [_vm._v("Pilih gambar")])])])])]), _vm._v(" "), _vm._m(9)])])])])]);
+  }, [_vm._v("Browse")])])])])]), _vm._v(" "), _vm._m(9)])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -8190,7 +8190,7 @@ var staticRenderFns = [function () {
     staticClass: "col-md-8"
   }, [_c("h4", {
     staticClass: "page-title m-0"
-  }, [_vm._v("Produk")])])])])])]);
+  }, [_vm._v("Product")])])])])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -8200,7 +8200,7 @@ var staticRenderFns = [function () {
     staticClass: "col-8"
   }, [_c("h4", {
     staticClass: "mt-0 header-title"
-  }, [_vm._v("Daftar Produk")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("PRODUCT LIST")])]), _vm._v(" "), _c("div", {
     staticClass: "col-4"
   }, [_c("div", {
     staticClass: "float-right d-none d-md-block"
@@ -8215,7 +8215,7 @@ var staticRenderFns = [function () {
     }
   }, [_c("i", {
     staticClass: "ti-plus mr-1"
-  }), _vm._v(" Tambah\n                                    ")])])])])]);
+  }), _vm._v(" Add\n                                    ")])])])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -8232,7 +8232,7 @@ var staticRenderFns = [function () {
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Kode")]), _vm._v(" "), _c("th", [_vm._v("Nama")]), _vm._v(" "), _c("th", [_vm._v("Stok")]), _vm._v(" "), _c("th", [_vm._v("Harga")]), _vm._v(" "), _c("th", [_vm._v("Aksi")])])]);
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Code")]), _vm._v(" "), _c("th", [_vm._v("Name")]), _vm._v(" "), _c("th", [_vm._v("Stock")]), _vm._v(" "), _c("th", [_vm._v("Price")]), _vm._v(" "), _c("th", [_vm._v("Action")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -8243,7 +8243,7 @@ var staticRenderFns = [function () {
     attrs: {
       id: "exampleModalLabel"
     }
-  }, [_vm._v("Tambah Produk")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("Add New Product")]), _vm._v(" "), _c("button", {
     staticClass: "close",
     attrs: {
       type: "button",
@@ -8282,7 +8282,7 @@ var staticRenderFns = [function () {
     attrs: {
       type: "submit"
     }
-  }, [_vm._v("Tambah")])]);
+  }, [_vm._v("Add")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -8293,7 +8293,7 @@ var staticRenderFns = [function () {
     attrs: {
       id: "exampleModalLabel"
     }
-  }, [_vm._v("Tambah Kategori")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("Edit Product")]), _vm._v(" "), _c("button", {
     staticClass: "close",
     attrs: {
       type: "button",

@@ -6,7 +6,7 @@
                 <div class="page-title-box">
                     <div class="row align-items-center">
                         <div class="col-md-8">
-                            <h4 class="page-title m-0">Produk</h4>
+                            <h4 class="page-title m-0">Product</h4>
                         </div>
                         <!-- end col -->
                     </div>
@@ -23,7 +23,7 @@
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col-8">
-                                <h4 class="mt-0 header-title">Daftar Produk</h4>
+                                <h4 class="mt-0 header-title">PRODUCT LIST</h4>
                             </div>
                             
                             <div class="col-4">
@@ -31,7 +31,7 @@
                                 <div class="float-right d-none d-md-block">
                                     <div class="dropdown">
                                         <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalAdd">
-                                            <i class="ti-plus mr-1"></i> Tambah
+                                            <i class="ti-plus mr-1"></i> Add
                                         </button>
                                     </div>
                                 </div>
@@ -43,7 +43,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                                 </div>
-                                    <input type="text" class="form-control" placeholder="Cari Nama Kategori" aria-label="Cari Nama Kategori" aria-describedby="basic-addon1" v-model="search" @keyup="searchData">
+                                    <input type="text" class="form-control" placeholder="Search Category Name" aria-label="Search Category Name" aria-describedby="basic-addon1" v-model="search" @keyup="searchData">
                                 </div>
                             </div>
                         </div>
@@ -52,11 +52,11 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Kode</th>
-                                        <th>Nama</th>
-                                        <th>Stok</th>
-                                        <th>Harga</th>
-                                        <th>Aksi</th>
+                                        <th>Code</th>
+                                        <th>Name</th>
+                                        <th>Stock</th>
+                                        <th>Price</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -70,10 +70,10 @@
                                         </td>
                                         
                                         <td>{{ product.stock }}</td>
-                                        <td>Rp {{ formatPrice(product.price) }}</td>
+                                        <td>Gh₵ {{ formatPrice(product.price) }}</td>
                                         <td>
                                             <button type="button" class='btn btn-warning' @click="editProduct(product.id)">Edit</button>
-                                            <button type="button" @click="deleteProduct(product.id)" class="btn btn-danger">Hapus</button>
+                                            <button type="button" @click="deleteProduct(product.id)" class="btn btn-danger">Delete</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -96,7 +96,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Produk</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -110,27 +110,27 @@
                                     </ul>
                                 </div>
                                 <div class="form-group">
-                                    <label for="name">Nama Produk</label>
+                                    <label for="name">Name of Product</label>
                                     <input id="name" type="text"
                                         class="form-control" name="name" autofocus
-                                        placeholder="Nama produk" v-model='add.name'>
+                                        placeholder="Name of Product" v-model='add.name'>
                                 </div>
                                 <div class="form-group">
-                                    <label for="code">Kode Produk</label>
+                                    <label for="code">Code of Product</label>
                                     <input id="code" type="text"
                                         class="form-control" name="code" autofocus
-                                        placeholder="Kode produk" v-model='add.code'>
+                                        placeholder="Use the scanner to add code" v-model='add.code'>
                                 
                                 </div>
                                 <div class="form-group">
-                                    <label for="last_name">Kategori</label>
+                                    <label for="last_name">Category</label>
                                     <select name="category" id="" class='form-control' v-model='add.category'>
-                                        <option value="">Pilih salah satu..</option>
+                                        <option value="">Select One..</option>
                                         <option :value="category.id" v-for="category  in this.categories" :key="category.id">{{ category.name }}</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Deskripsi</label>
+                                    <label for="">Description</label>
                                     <textarea name="description" id="" cols="30" rows="5" class="form-control" v-model="add.description"></textarea>
                                 </div>
                                 <div class="form-group">
@@ -140,31 +140,31 @@
                              
                                 </div>
                                 <div class="form-group">
-                                    <label for="email">Harga</label>
+                                    <label for="email">Price</label>
                                     <input id="price" type="number" class="form-control"
                                         name="price" placeholder="Harga" v-model="add.price" >
                                 </div>
                                 <div class="form-group">
-                                    <label for="email">PPN</label>
+                                    <label for="email">VAT</label>
                                     <input id="ppn" type="number" class="form-control"
-                                        name="ppn" placeholder="PPN (Dalam %)" v-model="add.ppn" >
+                                        name="ppn" placeholder="VAT (%)" v-model="add.ppn" >
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Gambar</label>
+                                    <label for="">Picture</label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                                         </div>
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" name='file' id="inputGroupFile01" @change="onChangePhotoUpload" aria-describedby="inputGroupFileAddon01" multiple accept='image/*'>
-                                            <label class="custom-file-label" for="inputGroupFile01">Pilih gambar</label>
+                                            <label class="custom-file-label" for="inputGroupFile01">Browse</label>
                                         </div> 
                                     </div>
                                 </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Tambah</button>
+                            <button type="submit" class="btn btn-primary">Add</button>
                         </div>
                     </form>
                 </div>
@@ -175,7 +175,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -189,54 +189,54 @@
                                 </ul>
                             </div>
                             <div class="form-group">
-                                <label for="name">Nama Produk</label>
+                                <label for="name">Name of Product</label>
                                 <input id="name" type="text"
                                     class="form-control" name="name" autofocus
                                     placeholder="Nama produk" v-model='edit.name'>
                             </div>
                             <div class="form-group">
-                                <label for="code">Kode Produk</label>
+                                <label for="code">Code of Product</label>
                                 <input id="code" type="text"
                                     class="form-control" name="code" autofocus
-                                    placeholder="Kode produk" v-model='edit.code'>
+                                    placeholder="Use scanner to add code" v-model='edit.code'>
                             
                             </div>
                             <div class="form-group">
-                                <label for="last_name">Kategori</label>
+                                <label for="last_name">Category</label>
                                 <select name="category" id="" class='form-control' v-model='edit.category'>
-                                    <option value="">Pilih salah satu..</option>
+                                    <option value="">Select One..</option>
                                     <option :value="category.id" v-for="category  in this.categories" :key="category.id">{{ category.name }}</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="">Deskripsi</label>
+                                <label for="">Description</label>
                                 <textarea name="description" id="" cols="30" rows="5" class="form-control" v-model="edit.description"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="email">Stock</label>
                                 <input id="stock" type="number" class="form-control"
-                                    name="stock" placeholder="Stok barang" v-model="edit.stock">
+                                    name="stock" placeholder="Stock balance" v-model="edit.stock">
                             
                             </div>
                             <div class="form-group">
-                                <label for="email">Harga</label>
+                                <label for="email">Price</label>
                                 <input id="price" type="number" class="form-control"
-                                    name="price" placeholder="Harga" v-model="edit.price" >
+                                    name="price" placeholder="Price" v-model="edit.price" >
                             </div>
                             <div class="form-group">
-                                <label for="email">PPN</label>
+                                <label for="email">VAT</label>
                                 <input id="price" type="number" class="form-control"
-                                    name="ppn" placeholder="Harga" v-model="edit.ppn" >
+                                    name="ppn" placeholder="VAT" v-model="edit.ppn" >
                             </div>
                             <div class="form-group">
-                                <label for="">Gambar</label>
+                                <label for="">Picture</label>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                                     </div>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" name='file' id="inputGroupFile01" @change="onChangePhotoEdit" aria-describedby="inputGroupFileAddon01" multiple accept='image/*'>
-                                        <label class="custom-file-label" for="inputGroupFile01">Pilih gambar</label>
+                                        <label class="custom-file-label" for="inputGroupFile01">Browse</label>
                                     </div> 
                                 </div>
                             </div>
@@ -454,14 +454,14 @@ export default {
         },
 
         deleteProduct(id) {
-            alertify.confirm("Anda yakin ingin menghapus?", function (ev) {
+            alertify.confirm("Are you sure you want to delete?", function (ev) {
                 ev.preventDefault();
                 let that = this
                 axios.delete(`/api/v1/product/${id}`)
                     .then(res => {
                         console.log(res);
                         that.displayData();
-                        alertify.success("Berhasil hapus produk!");
+                        alertify.success("Successfully deleted product!");
                     });
                 });
         },

@@ -123,7 +123,7 @@
                                     <select name="" id="" v-model="add.role" class="form-control">
                                         <option value="">Select one</option>
                                         <option value="Retail">Retail</option>
-                                        <option value="Grosir">Wholesaler</option>
+                                        <option value="Eceran">Wholesaler</option>
                                         <option value="Dropshipper">Dropshipper</option>
                                     </select>
                                 </div>
@@ -326,6 +326,7 @@ export default {
                 alamat: '',
                 image_name: '',
                 photo: '',
+                provinsi: '',
                 kota:'',
             },
             add: {

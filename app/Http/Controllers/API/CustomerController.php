@@ -46,7 +46,8 @@ class CustomerController extends Controller
             'provinsi' => 'required',
             'kota' => 'required',
             'email' => 'required|email',
-            'photo' => 'nullable'
+            'photo' => 'nullable',
+            'role' => 'required',
         ]);
 
         $customer = new Customer;
@@ -143,6 +144,9 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $customer = Customer::find($id);
+        $customer->delete();
+
+        return response()->json(['status' => true]);
     }
 }

@@ -3660,6 +3660,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         alamat: '',
         image_name: '',
         photo: '',
+        provinsi: '',
         kota: ''
       },
       add: {
@@ -5990,7 +5991,7 @@ var render = function render() {
     }
   }, [_vm._v("Retail")]), _vm._v(" "), _c("option", {
     attrs: {
-      value: "Grosir"
+      value: "Eceran"
     }
   }, [_vm._v("Wholesaler")]), _vm._v(" "), _c("option", {
     attrs: {

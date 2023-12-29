@@ -18,7 +18,7 @@
                     <div id="sidebar-menu">
                         <ul>
 
-                                <li class="menu-title" v-if="$auth.check(['Kasir','Admin'])">Kasir</li>
+                                <li class="menu-title" v-if="$auth.check(['Kasir','Admin'])">Cashier</li>
 
                                 
                                 <li v-if="$auth.check(['Kasir','Admin'])">

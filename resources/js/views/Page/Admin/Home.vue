@@ -140,6 +140,7 @@ export default {
             axios.get('/api/v1/admin/home')
                 .then(res => {
                     this.data = res.data;
+                    console.log(this.data);
                 })
         }
     }

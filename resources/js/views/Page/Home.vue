@@ -7,7 +7,7 @@
             <div class="page-title-box">
                 <div class="row align-items-center">
                     <div class="col-md-8">
-                        <h4 class="page-title m-0">Pengguna</h4>
+                        <h4 class="page-title m-0">User</h4>
                     </div>
                     <!-- end col -->
                 </div>
@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <div class="row mb-3">
                         <div class="col-8">
-                            <h4 class="mt-0 header-title">Semua Pengguna</h4>
+                            <h4 class="mt-0 header-title">All Users</h4>
                         </div>
                         
                         <div class="col-4">
@@ -32,7 +32,7 @@
                             <div class="float-right d-none d-md-block">
                                 <div class="dropdown">
                                     <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalAdd">
-                                        <i class="ti-plus mr-1"></i> Tambah
+                                        <i class="ti-plus mr-1"></i> Add
                                     </button>
                                 </div>
                             </div>
@@ -50,11 +50,11 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nama</th>
+                                    <th>Name</th>
                                     <th>Email</th>
                                     <th>Username</th>
                                     <th>Level</th>
-                                    <th>Aksi</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                         </table>
@@ -69,7 +69,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Pengguna</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -79,10 +79,10 @@
                         @csrf
                         <div class="row">
                             <div class="form-group col-6">
-                                <label for="first_name">Nama depan</label>
+                                <label for="first_name">First Name</label>
                                 <input id="first_name" type="text"
                                     class="form-control   " name="first_name" autofocus
-                                    placeholder="Nama depan">
+                                    placeholder="First Name">
                                 @if ($errors->has('name'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong> $errors->first('name') </strong>
@@ -90,9 +90,9 @@
                                 @endif
                             </div>
                             <div class="form-group col-6">
-                                <label for="last_name">Nama Belakang</label>
+                                <label for="last_name">Last Name</label>
                                 <input id="last_name" type="text" class="form-control  $errors->has('last_name') ? ' is-invalid' : '' "
-                                    name="last_name" placeholder="Nama belakang">
+                                    name="last_name" placeholder="Last Name">
                             </div>
                         </div>
                         <div class="form-group">
@@ -134,7 +134,7 @@
                         <div class="form-group">
                             <label for="">Level</label>
                             <select name="level" id="" class="form-control">
-                                <option value="Kasir">Kasir</option>
+                                <option value="Kasir">Cashier</option>
                                 <option value="Admin">Admin</option>
                             </select>
                         </div>
@@ -142,7 +142,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Tambah</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
                     </div>
                 </form>
             </div>

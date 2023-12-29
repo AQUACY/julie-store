@@ -3942,6 +3942,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       axios.get('/api/v1/admin/home').then(function (res) {
         _this.data = res.data;
+        console.log(_this.data);
       });
     }
   }
@@ -4953,7 +4954,7 @@ var render = function render() {
     }
   }, [_c("ul", [_vm.$auth.check(["Kasir", "Admin"]) ? _c("li", {
     staticClass: "menu-title"
-  }, [_vm._v("Kasir")]) : _vm._e(), _vm._v(" "), _vm.$auth.check(["Kasir", "Admin"]) ? _c("li", [_c("router-link", {
+  }, [_vm._v("Cashier")]) : _vm._e(), _vm._v(" "), _vm.$auth.check(["Kasir", "Admin"]) ? _c("li", [_c("router-link", {
     staticClass: "waves-effect",
     attrs: {
       to: "/transaksi"
@@ -9724,7 +9725,7 @@ var staticRenderFns = [function () {
     staticClass: "col-md-8"
   }, [_c("h4", {
     staticClass: "page-title m-0"
-  }, [_vm._v("Pengguna")])])])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("User")])])])])])]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-xl-12"
@@ -9738,7 +9739,7 @@ var staticRenderFns = [function () {
     staticClass: "col-8"
   }, [_c("h4", {
     staticClass: "mt-0 header-title"
-  }, [_vm._v("Semua Pengguna")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("All Users")])]), _vm._v(" "), _c("div", {
     staticClass: "col-4"
   }, [_c("div", {
     staticClass: "float-right d-none d-md-block"
@@ -9753,7 +9754,7 @@ var staticRenderFns = [function () {
     }
   }, [_c("i", {
     staticClass: "ti-plus mr-1"
-  }), _vm._v(" Tambah\n                                    ")])])])])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Add\n                                    ")])])])])]), _vm._v(" "), _c("div", {
     staticClass: "alert alert-success"
   }, [_c("i", {
     staticClass: "fas fa-check-circle"
@@ -9768,7 +9769,7 @@ var staticRenderFns = [function () {
     attrs: {
       id: "users-table"
     }
-  }, [_c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Nama")]), _vm._v(" "), _c("th", [_vm._v("Email")]), _vm._v(" "), _c("th", [_vm._v("Username")]), _vm._v(" "), _c("th", [_vm._v("Level")]), _vm._v(" "), _c("th", [_vm._v("Aksi")])])])])])])])])]), _vm._v(" "), _c("div", {
+  }, [_c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Name")]), _vm._v(" "), _c("th", [_vm._v("Email")]), _vm._v(" "), _c("th", [_vm._v("Username")]), _vm._v(" "), _c("th", [_vm._v("Level")]), _vm._v(" "), _c("th", [_vm._v("Action")])])])])])])])])]), _vm._v(" "), _c("div", {
     staticClass: "modal fade",
     attrs: {
       id: "modalAdd",
@@ -9791,7 +9792,7 @@ var staticRenderFns = [function () {
     attrs: {
       id: "exampleModalLabel"
     }
-  }, [_vm._v("Tambah Pengguna")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("Add User")]), _vm._v(" "), _c("button", {
     staticClass: "close",
     attrs: {
       type: "button",
@@ -9817,14 +9818,14 @@ var staticRenderFns = [function () {
     attrs: {
       "for": "first_name"
     }
-  }, [_vm._v("Nama depan")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("First Name")]), _vm._v(" "), _c("input", {
     staticClass: "form-control",
     attrs: {
       id: "first_name",
       type: "text",
       name: "first_name",
       autofocus: "",
-      placeholder: "Nama depan"
+      placeholder: "First Name"
     }
   }), _vm._v("\n                                @if ($errors->has('name'))\n                                "), _c("span", {
     staticClass: "invalid-feedback",
@@ -9837,13 +9838,13 @@ var staticRenderFns = [function () {
     attrs: {
       "for": "last_name"
     }
-  }, [_vm._v("Nama Belakang")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Last Name")]), _vm._v(" "), _c("input", {
     staticClass: "form-control $errors->has('last_name') ? ' is-invalid' : ''",
     attrs: {
       id: "last_name",
       type: "text",
       name: "last_name",
-      placeholder: "Nama belakang"
+      placeholder: "Last Name"
     }
   })])]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
@@ -9928,7 +9929,7 @@ var staticRenderFns = [function () {
     attrs: {
       value: "Kasir"
     }
-  }, [_vm._v("Kasir")]), _vm._v(" "), _c("option", {
+  }, [_vm._v("Cashier")]), _vm._v(" "), _c("option", {
     attrs: {
       value: "Admin"
     }
@@ -9945,7 +9946,7 @@ var staticRenderFns = [function () {
     attrs: {
       type: "submit"
     }
-  }, [_vm._v("Tambah")])])])])])])]);
+  }, [_vm._v("Add")])])])])])])]);
 }];
 render._withStripped = true;
 
@@ -10499,9 +10500,9 @@ var render = function render() {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-6 m-t-30"
-  }, [_c("address", [_c("strong", [_vm._v("Metode Pembayaran:")]), _c("br"), _vm._v("\n                                                            " + _vm._s(_vm.data_order.payment_method.name) + " "), _c("br")])]), _vm._v(" "), _c("div", {
+  }, [_c("address", [_c("strong", [_vm._v("Mode of Payment:")]), _c("br"), _vm._v("\n                                                            " + _vm._s(_vm.data_order.payment_method.name) + " "), _c("br")])]), _vm._v(" "), _c("div", {
     staticClass: "col-6 m-t-30 text-right"
-  }, [_c("address", [_c("strong", [_vm._v("Tanggal Pesanan:")]), _c("br"), _vm._v("\n                                                            " + _vm._s(_vm.moment(_vm.data_order.created_at).format("DD MMMM YYYY"))), _c("br"), _c("br")])])])])]), _vm._v(" "), _c("div", {
+  }, [_c("address", [_c("strong", [_vm._v("Order Date:")]), _c("br"), _vm._v("\n                                                            " + _vm._s(_vm.moment(_vm.data_order.created_at).format("DD MMMM YYYY"))), _c("br"), _c("br")])])])])]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-12"
@@ -10527,13 +10528,13 @@ var render = function render() {
     staticClass: "no-line"
   }), _vm._v(" "), _vm._m(4), _vm._v(" "), _c("td", {
     staticClass: "no-line text-right"
-  }, [_vm._v("Rp " + _vm._s(_vm.numberFormat(_vm.totalPPN)) + " ")])]), _vm._v(" "), _c("tr", [_c("td", {
+  }, [_vm._v("Gh₵ " + _vm._s(_vm.numberFormat(_vm.totalPPN)) + " ")])]), _vm._v(" "), _c("tr", [_c("td", {
     staticClass: "thick-line"
   }), _vm._v(" "), _c("td", {
     staticClass: "thick-line"
   }), _vm._v(" "), _vm._m(5), _vm._v(" "), _c("td", {
     staticClass: "thick-line text-right"
-  }, [_vm._v("Rp " + _vm._s(_vm.numberFormat(_vm.data_order.total)))])]), _vm._v(" "), _c("tr", [_c("td", {
+  }, [_vm._v("Gh₵ " + _vm._s(_vm.numberFormat(_vm.data_order.total)))])]), _vm._v(" "), _c("tr", [_c("td", {
     staticClass: "no-line"
   }), _vm._v(" "), _c("td", {
     staticClass: "no-line"
@@ -10618,15 +10619,15 @@ var staticRenderFns = [function () {
     staticClass: "p-2"
   }, [_c("h3", {
     staticClass: "panel-title font-20"
-  }, [_c("strong", [_vm._v("Ringkasan Pesanan")])])]);
+  }, [_c("strong", [_vm._v("Order Summary")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("td", [_c("strong", [_vm._v("Barang")])]), _vm._v(" "), _c("td", {
+  return _c("thead", [_c("tr", [_c("td", [_c("strong", [_vm._v("Goods")])]), _vm._v(" "), _c("td", {
     staticClass: "text-center"
-  }, [_c("strong", [_vm._v("Harga")])]), _vm._v(" "), _c("td", {
+  }, [_c("strong", [_vm._v("Price")])]), _vm._v(" "), _c("td", {
     staticClass: "text-center"
-  }, [_c("strong", [_vm._v("Jumlah")])]), _vm._v(" "), _c("td", {
+  }, [_c("strong", [_vm._v("Amount")])]), _vm._v(" "), _c("td", {
     staticClass: "text-right"
   }, [_c("strong", [_vm._v("Total")])])])]);
 }, function () {

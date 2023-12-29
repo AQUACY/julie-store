@@ -6,7 +6,7 @@
                 <div class="page-title-box">
                     <div class="row align-items-center">
                         <div class="col-md-8">
-                            <h4 class="page-title m-0">Kategori</h4>
+                            <h4 class="page-title m-0">Category</h4>
                         </div>
                         <!-- end col -->
                     </div>
@@ -23,7 +23,7 @@
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col-8">
-                                <h4 class="mt-0 header-title">Semua kategori</h4>
+                                <h4 class="mt-0 header-title">All Categories</h4>
                             </div>
                             
                             <div class="col-4">
@@ -31,7 +31,7 @@
                                 <div class="float-right d-none d-md-block">
                                     <div class="dropdown">
                                         <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalAdd">
-                                            <i class="ti-plus mr-1"></i> Tambah
+                                            <i class="ti-plus mr-1"></i> Add
                                         </button>
                                     </div>
                                 </div>
@@ -43,7 +43,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                                 </div>
-                                    <input type="text" class="form-control" placeholder="Cari Nama Kategori" aria-label="Cari Nama Kategori" aria-describedby="basic-addon1" v-model="search" @keyup="searchData">
+                                    <input type="text" class="form-control" placeholder="Search Category Name" aria-label="Search Category Name" aria-describedby="basic-addon1" v-model="search" @keyup="searchData">
                                 </div>
                             </div>
                         </div>
@@ -52,10 +52,10 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Gambar</th>
-                                        <th>Nama</th>
-                                        <th>Deskripsi</th>
-                                        <th>Aksi</th>
+                                        <th>Picture</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -73,7 +73,7 @@
                                         <td>
                                             <button type="button" class='btn btn-warning' @click="editCategory(category.id)">Edit</button>
                                             <button type="button" @click="deleteCategory(category.id)" class="btn btn-danger" ><span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" ></span>
-  Hapus</button>
+  Delete</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -96,7 +96,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -110,21 +110,21 @@
                                     </ul>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Nama Kategori: </label>
+                                    <label for="">Name of Category: </label>
                                     <input type="text" name="name" class="form-control" v-model="name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Deskripsi: </label>
+                                    <label for="">Description: </label>
                                     <textarea name="description" class="form-control" v-model="description"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Gambar: </label>
+                                    <label for="">Picture: </label>
                                     <input type="file" name="file" id="" class='form-control-file' accept='image/*' @change="onChangePhotoUpload">
                                 </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" :disabled="addLoading == true"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="addLoading == true"></span> Tambah</button>
+                            <button type="submit" class="btn btn-primary" :disabled="addLoading == true"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="addLoading == true"></span> Add</button>
                         </div>
                     </form>
                 </div>
@@ -135,7 +135,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Category </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -150,15 +150,15 @@
                                     </ul>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Nama Kategori: </label>
+                                    <label for="">Name of Category: </label>
                                     <input type="text" name="name" class="form-control" v-model="edit.name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Deskripsi: </label>
+                                    <label for="">Description: </label>
                                     <textarea name="description" class="form-control" v-model="edit.description"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Gambar: </label>
+                                    <label for="">Picture: </label>
                                     <input type="file" name="file" id="" class='form-control-file' accept='image/*' @change="onChangePhotoEdit">
                                     <img :src="`/images/categories/${edit.image_name}`" alt="" class="image-table" id='edit-category-image'>
                                 </div>
@@ -245,8 +245,8 @@ export default {
                     // console.log(res);
                     this.errors = [];
                     Swal.fire(
-                        'Sukses',
-                        'Sukses tambah kategori',
+                        'Success',
+                        'Successfully added category',
                         'success'
                     );
                     this.displayData();
@@ -255,7 +255,7 @@ export default {
                     console.log(error.response);
                     let statusCode = error.response.status;
                     if(statusCode == 500) {
-                        this.errors = {"error": "Terjadi kesalahan sistem."};
+                        this.errors = {"error": "A system error occurred"};
                     }else if(statusCode == 422) {
                         console.log(error.response.data)
                         this.errors = error.response.data.errors;
@@ -297,8 +297,8 @@ export default {
                     $('#modalEdit').modal('toggle');
                     this.displayData();
                     Swal.fire(
-                        'Sukses',
-                        'Sukses edit kategori',
+                        'Success',
+                        'Successfully edited category',
                         'success'
                     );
                 }).catch(err => console.log(err))
@@ -312,7 +312,7 @@ export default {
                 .then(function() {
                     $(event.target).find('span').addClass('d-none');
                     $(event.target).removeAttr('disabled');
-                    Swal.fire('Sukses hapus kategori!','Sukses!','success');
+                    Swal.fire('Successfully deleted category!','Successful!','success');
                     _this.displayData();
                 });
         },

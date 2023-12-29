@@ -67,8 +67,8 @@ export default {
         logout() {
             this.$auth.logout();
             Swal.fire(
-                        `Sukses!`,
-                        `Sukses logout!`,
+                        `Success!`,
+                        `Successfully logout!`,
                         'success'
                         )
         }

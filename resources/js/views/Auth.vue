@@ -16,10 +16,10 @@
                             <form class="form-horizontal m-t-20" @submit.prevent="login()">
                                 <transition name="fade">
                                     <div class="alert alert-danger" v-if="auth.has_error">
-                                        Username atau password salah.
+                                        The username or password is incorrect.
                                     </div>
                                     <div class="alert alert-success" v-else-if="auth.success">
-                                        Sukses login.
+                                        Successfully login.
                                     </div>
                                 </transition>
                                 <div class="form-group row">

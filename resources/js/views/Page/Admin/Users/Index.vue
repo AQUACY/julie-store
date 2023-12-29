@@ -6,7 +6,7 @@
                 <div class="page-title-box">
                     <div class="row align-items-center">
                         <div class="col-md-8">
-                            <h4 class="page-title m-0">Pengguna</h4>
+                            <h4 class="page-title m-0">Users</h4>
                         </div>
                         <!-- end col -->
                     </div>
@@ -23,7 +23,7 @@
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col-8">
-                                <h4 class="mt-0 header-title">Semua pengguna</h4>
+                                <h4 class="mt-0 header-title">All Users</h4>
                             </div>
                             
                             <div class="col-4">
@@ -31,7 +31,7 @@
                                 <div class="float-right d-none d-md-block">
                                     <div class="dropdown">
                                         <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalAdd">
-                                            <i class="ti-plus mr-1"></i> Tambah
+                                            <i class="ti-plus mr-1"></i> Add 
                                         </button>
                                     </div>
                                 </div>
@@ -43,7 +43,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                                 </div>
-                                    <input type="text" class="form-control" placeholder="Cari Nama/Email Pengguna"  aria-describedby="basic-addon1" v-model="search" @keyup="searchData">
+                                    <input type="text" class="form-control" placeholder="Serach User Name / Email"  aria-describedby="basic-addon1" v-model="search" @keyup="searchData">
                                 </div>
                             </div>
                         </div>
@@ -52,11 +52,11 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Nama</th>
+                                        <th>Name</th>
                                         <th>Email</th>
-                                        <th>No telepon</th>
+                                        <th>Telephone</th>
                                         <th>Level</th>
-                                        <th>Aksi</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -72,7 +72,7 @@
                                         <td>
                                             <button type="button" class='btn btn-primary' @click="userDetail(data.id)">Detail</button>
                                             <button type="button" class='btn btn-warning' @click="userEdit(data.id)">Edit</button>
-                                            <button type="button" @click="userDelete(data.id)" class="btn btn-danger">Hapus</button>
+                                            <button type="button" @click="userDelete(data.id)" class="btn btn-danger">Delete</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -95,7 +95,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Pengguna</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -108,7 +108,7 @@
                                 </ul>
                             </div>
                                 <div class="form-group">
-                                    <label for="">Nama Pengguna: </label>
+                                    <label for="">Full Name: </label>
                                     <input type="text" name="name" class="form-control" v-model="add.name">
                                 </div>
                                 <div class="form-group">
@@ -124,23 +124,23 @@
                                     <input type='text' name="description" class="form-control" v-model="add.password">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">No telp: </label>
+                                    <label for="">Telephone Number: </label>
                                     <input type='text' name="description" class="form-control" v-model="add.phone">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Alamat: </label>
+                                    <label for="">Address: </label>
                                     <textarea name="description" class="form-control" v-model="add.address"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Level: </label>
                                     <select name="level" id="" v-model="add.level" class="form-control">
-                                        <option value="">Pilih salah satu..</option>
+                                        <option value="">Select one..</option>
                                         <option value="Admin"  >Admin</option>
-                                        <option value="Kasir" >Kasir</option>
+                                        <option value="Kasir" >Cashier</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Foto: </label>
+                                    <label for="">Photo: </label>
                                     <input type="file" name="file" id="" class='form-control-file' accept='image/*' @change="onChangePhotoAdd">
                                     <img :src="`/images/categories/${add.image_name}`" alt="" class="image-table" id='add-category-image'>
                                 </div>
@@ -158,7 +158,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Pengguna</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -172,7 +172,7 @@
                                     </ul>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Nama Pengguna: </label>
+                                    <label for="">Name of User: </label>
                                     <input type="text" name="name" class="form-control" v-model="edit.name">
                                 </div>
                                 <div class="form-group">
@@ -188,23 +188,23 @@
                                     <input type='text' name="description" class="form-control" v-model="edit.password" placeholder="ISI JIKA INGIN DIUBAH">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">No telp: </label>
+                                    <label for="">Telephone : </label>
                                     <input type='text' name="description" class="form-control" v-model="edit.phone">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Alamat: </label>
+                                    <label for="">Address: </label>
                                     <textarea name="description" class="form-control" v-model="edit.address"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Level: </label>
                                     <select name="level" id="" v-model="edit.level" class="form-control">
-                                        <option value="">Pilih salah satu..</option>
+                                        <option value="">Select one...</option>
                                         <option value="Admin"  >Admin</option>
-                                        <option value="Kasir" >Kasir</option>
+                                        <option value="Kasir" >Cashier</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Foto: </label>
+                                    <label for="">Photo: </label>
                                     <input type="file" name="file" id="" class='form-control-file' accept='image/*' @change="onChangePhotoEdit">
                                     <img :src="`/images/users/${edit.image_name}`" alt="" class="image-table" id='edit-category-image'>
                                 </div>
@@ -222,7 +222,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Detail Pengguna</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -231,7 +231,7 @@
                         
                     <div class="modal-body">
                         <div class="form-group row">
-                            <label for="example-search-input" class="col-sm-4 col-form-label">Nama Lengkap: </label>
+                            <label for="example-search-input" class="col-sm-4 col-form-label">Full Name: </label>
                             <div class="col-sm-8">
                                 <input class="form-control-plaintext" type="search" id="example-search-input" v-model="detail.name" readonly>
                             </div>
@@ -243,13 +243,13 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-search-input" class="col-sm-4 col-form-label">Nomor Telp: </label>
+                            <label for="example-search-input" class="col-sm-4 col-form-label">Telephone Number: </label>
                             <div class="col-sm-8">
                                 <input class="form-control-plaintext" type="search" id="example-search-input" v-model="detail.phone" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-search-input" class="col-sm-4 col-form-label">Alamat: </label>
+                            <label for="example-search-input" class="col-sm-4 col-form-label">Address: </label>
                             <div class="col-sm-8">
                                 <textarea name="" id="" cols="30" rows="4" class="form-control-plaintext" v-model="detail.address"></textarea>
                             </div>
@@ -346,17 +346,17 @@ export default {
         },
         userDelete(id) {
             let that = this;
-            alertify.confirm("Anda yakin ingin menghapus?", function (ev) {
+            alertify.confirm("Are you sure you want to delete?", function (ev) {
                 ev.preventDefault();
                 axios.delete(`/api/v1/user/${id}`)
                     .then(res => {
                         console.log(res);
                         that.displayData();
-                        alertify.success("Berhasil hapus pengguna!");
+                        alertify.success("Successfully deleted user!");
                     });
             }, function(ev) {
                 ev.preventDefault();
-                alertify.error("Berhasil membatalkan");
+                alertify.error("Cancel successfully");
             });
         },
         userEdit(id) {
@@ -393,15 +393,15 @@ export default {
                     $('#modalEdit').modal('toggle');
                     this.displayData();
                         Swal.fire(
-                        `Sukses!`,
-                        `Sukses ubah data pengguna ${this.add.level}!`,
+                        `Success!`,
+                        `Successfully changed user data ${this.add.level}!`,
                         'success'
                         )
 
                 }).catch(error => {
                     let statusCode = error.response.status;
                     if(statusCode == 500) {
-                        this.errors = {"error": "Terjadi kesalahan sistem."};
+                        this.errors = {"error": "A system error occurred."};
                     }else if(statusCode == 400) {
                         console.log(error.response.data)
                         this.errors = error.response.data;
@@ -435,7 +435,7 @@ export default {
                 }).catch(error => {
                     let statusCode = error.response.status;
                     if(statusCode == 500) {
-                        this.errors = {"error": "Terjadi kesalahan sistem."};
+                        this.errors = {"error": "A system error occurred."};
                     }else if(statusCode == 400) {
                         console.log(error.response.data)
                         this.errors = error.response.data;

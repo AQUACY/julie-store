@@ -7,7 +7,7 @@
             <div class="page-title-box">
                 <div class="row align-items-center">
                     <div class="col-md-8">
-                        <h4 class="page-title m-0">Riwayat Transaksi</h4>
+                        <h4 class="page-title m-0">Transaction History</h4>
                     </div>
                     <!-- end col -->
                 </div>
@@ -33,7 +33,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Produk</th>
+                                    <th>Product</th>
                                     <th>Customer</th>
                                     <th>Total Harga</th>
                                     <th>Tanggal</th>

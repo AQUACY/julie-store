@@ -23,7 +23,7 @@
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col-8">
-                                <h4 class="mt-0 header-title">Semua Customer</h4>
+                                <h4 class="mt-0 header-title">ALL CUSTOMERS</h4>
                             </div>
                             
                             <div class="col-4">
@@ -31,7 +31,7 @@
                                 <div class="float-right d-none d-md-block">
                                     <div class="dropdown">
                                         <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalAdd">
-                                            <i class="ti-plus mr-1"></i> Tambah
+                                            <i class="ti-plus mr-1"></i> Add
                                         </button>
                                     </div>
                                 </div>
@@ -52,11 +52,11 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Nama</th>
+                                        <th>Name</th>
                                         <th>Email</th>
-                                        <th>No telepon</th>
+                                        <th>Telophone</th>
                                         <th>Level</th>
-                                        <th>Aksi</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -71,7 +71,7 @@
                                         <td>
                                             <button type="button" class='btn btn-primary' @click="userDetail(data.id)">Detail</button>
                                             <button type="button" class='btn btn-warning' @click="userEdit(data.id)">Edit</button>
-                                            <button type="button" @click="userDelete(data.id)" class="btn btn-danger">Hapus</button>
+                                            <button type="button" @click="userDelete(data.id)" class="btn btn-danger">Delete</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -94,7 +94,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Pengguna</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -107,11 +107,11 @@
                                 </ul>
                             </div>
                                 <div class="form-group">
-                                    <label for="">Nama Pengguna: </label>
+                                    <label for="">Name of Customer :  </label>
                                     <input type="text" name="name" class="form-control" v-model="add.name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">No telp: </label>
+                                    <label for="">Telephone : </label>
                                     <input type="text" name="name" class="form-control" v-model="add.phone">
                                 </div>
                                 <div class="form-group">
@@ -121,16 +121,16 @@
                                 <div class="form-group">
                                     <label for="">Role: </label>
                                     <select name="" id="" v-model="add.role" class="form-control">
-                                        <option value="">Pilih salah satu</option>
+                                        <option value="">Select one</option>
                                         <option value="Retail">Retail</option>
-                                        <option value="Grosir">Grosir</option>
+                                        <option value="Grosir">Wholesaler</option>
                                         <option value="Dropshipper">Dropshipper</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Provinsi: </label>
+                                    <label for="">Province: </label>
                                     <select name="" class="form-control" v-model="add.provinsi" id="">
-                                        <option value="">Pilih salah satu</option>
+                                        <option value="">Select one</option>
                                         <option value="aceh">Aceh</option>
                                         <option value="Jakarta">DKI Jakarta</option>
                                         <option value="Sumut">Sumatera Utara</option>
@@ -168,22 +168,22 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Kota: </label>
+                                    <label for="">City: </label>
                                     <input type="text" v-model="add.kota" class="form-control" placeholder="Kota">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Alamat Lengkap: </label>
+                                    <label for="">Full Address: </label>
                                     <textarea name="alamat" id="" cols="30" rows="10" v-model="add.alamat" class="form-control"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Foto: </label>
+                                    <label for="">Photo: </label>
                                     <input type="file" name="file" id="" class='form-control-file' accept='image/*' @change="onChangePhotoAdd">
                                     <img :src="`/images/categories/${add.image_name}`" alt="" class="image-table" id='add-category-image' v-if="add.image_name">
                                 </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Tambahz</button>
+                            <button type="submit" class="btn btn-primary">Add</button>
                         </div>
                     </form>
                 </div>
@@ -194,7 +194,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Pengguna</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Customer</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -208,7 +208,7 @@
                                     </ul>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Nama Pengguna: </label>
+                                    <label for="">Name of Customer: </label>
                                     <input type="text" name="name" class="form-control" v-model="edit.name">
                                 </div>
                                 <div class="form-group">
@@ -216,23 +216,30 @@
                                     <input type="text" name="name" class="form-control" v-model="edit.email">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Nomor Telepon: </label>
+                                    <label for="">Telephone Number: </label>
                                     <input type='text' name="description" class="form-control" v-model="edit.phone">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Alamat: </label>
-                                    <textarea name="description" class="form-control" v-model="edit.address"></textarea>
+                                    <label for="">Address: </label>
+                                    <textarea name="description" class="form-control" v-model="edit.alamat"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Level: </label>
-                                    <select name="level" id="" v-model="edit.level" class="form-control">
-                                        <option value="">Pilih salah satu..</option>
-                                        <option value="Admin"  >Admin</option>
-                                        <option value="Kasir" >Kasir</option>
+                                    <label for="">City: </label>
+                                    <textarea name="description" class="form-control" v-model="edit.kota"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Role: </label>
+                                    <select name="level" id="" v-model="edit.role" class="form-control">
+                                        <option value="">Select one</option>
+                                        <option value="Retail">Retail</option>
+                                        <option value="Grosir">Wholesaler</option>
+                                        <option value="Dropshipper">Dropshipper</option>
+                                        <option value="Walk-in"> Walk-in</option>
+                                       
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Foto: </label>
+                                    <label for="">Photo: </label>
                                     <input type="file" name="file" id="" class='form-control-file' accept='image/*' @change="onChangePhotoEdit">
                                     <img :src="`/images/customers/${edit.image_name}`" alt="" class="image-table" id='edit-category-image'>
                                 </div>
@@ -250,7 +257,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Detail Pengguna</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Customer Details</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -259,7 +266,7 @@
                         
                     <div class="modal-body">
                         <div class="form-group row">
-                            <label for="example-search-input" class="col-sm-4 col-form-label">Nama Lengkap: </label>
+                            <label for="example-search-input" class="col-sm-4 col-form-label">Name of Customer: </label>
                             <div class="col-sm-8">
                                 <input class="form-control-plaintext" type="search" id="example-search-input" v-model="detail.name" readonly>
                             </div>
@@ -271,21 +278,21 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-search-input" class="col-sm-4 col-form-label">Nomor Telp: </label>
+                            <label for="example-search-input" class="col-sm-4 col-form-label">Telephone: </label>
                             <div class="col-sm-8">
                                 <input class="form-control-plaintext" type="search" id="example-search-input" v-model="detail.phone" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-search-input" class="col-sm-4 col-form-label">Alamat: </label>
+                            <label for="example-search-input" class="col-sm-4 col-form-label">Address: </label>
                             <div class="col-sm-8">
-                                <textarea name="" id="" cols="30" rows="4" class="form-control-plaintext" v-model="detail.address"></textarea>
+                                <textarea name="" id="" cols="30" rows="4" class="form-control-plaintext" v-model="detail.alamat"></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="example-search-input" class="col-sm-4 col-form-label">Level: </label>
                             <div class="col-sm-8">
-                                <input name="" class="form-control-plaintext" v-model="detail.level">
+                                <input name="" class="form-control-plaintext" v-model="detail.role">
                             </div>
                         </div>
                     </div>
@@ -315,13 +322,11 @@ export default {
                 id: '',
                 name: '',
                 email: '',
-                password: '',
-                username: '',
-                password: '',
-                level: '',
-                address: '',
+                role: '',
+                alamat: '',
                 image_name: '',
                 photo: '',
+                kota:'',
             },
             add: {
                 id: '',
@@ -366,40 +371,42 @@ export default {
         },
 
         userDetail(id) {
-            axios.get(`/api/v1/user/${id}`)
+            axios.get(`/api/v1/customer/${id}`)
                 .then(res => {
                     this.detail = res.data;
                     console.log(res.data);
+                    console.log('this is for the user selected',this.detail)
+                    // console.log(this.customers);
                     $('#modalDetail').modal('show');
                 });
         },
         userDelete(id) {
             let that = this;
-            alertify.confirm("Anda yakin ingin menghapus?", function (ev) {
+            alertify.confirm("Are you sure you want to delete?", function (ev) {
                 ev.preventDefault();
-                axios.delete(`/api/v1/user/${id}`)
+                axios.delete(`/api/v1/customer/${id}`)
                     .then(res => {
                         console.log(res);
                         that.displayData();
-                        alertify.success("Berhasil hapus pengguna!");
+                        alertify.success("Successfully deleted user!");
                     });
             }, function(ev) {
                 ev.preventDefault();
-                alertify.error("Berhasil membatalkan");
+                alertify.error("Cancel successfully");
             });
         },
         userEdit(id) {
-            axios.get(`/api/v1/user/${id}/edit`)
+            axios.get(`/api/v1/customer/${id}/edit`)
                 .then(res => {
                     this.edit.id = res.data.id;
                     this.edit.name = res.data.name;
-                    this.edit.username = res.data.username;
-                    this.edit.password = res.data.password;
                     this.edit.email = res.data.email;
                     this.edit.phone = res.data.phone;
-                    this.edit.address = res.data.address;
-                    this.edit.level = res.data.level;
+                    this.edit.alamat = res.data.alamat;
+                    this.edit.role = res.data.role;
+                    this.edit.kota = res.data.kota;
                     this.edit.image_name = res.data.image_name;
+                    console.log(res.data)
                 })
                 
             $('#modalEdit').modal('toggle');
@@ -410,27 +417,27 @@ export default {
             
             formData.append('name', this.edit.name);
             formData.append('email', this.edit.email);
-            formData.append('password', this.edit.password);
             formData.append('phone', this.edit.phone);
-            formData.append('address', this.edit.address);
-            formData.append('level', this.edit.level);
-            formData.append('username', this.edit.username);
+            formData.append('provinsi', this.edit.provinsi);
+            formData.append('alamat', this.edit.alamat);
+            formData.append('role', this.edit.role);
+            formData.append('kota', this.edit.kota);
             formData.append('photo', this.edit.photo);
 
-            axios.post(`/api/v1/user/${this.edit.id}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+            axios.post(`/api/v1/customer/${this.edit.id}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
                 .then(res => {
                     $('#modalEdit').modal('toggle');
                     this.displayData();
                         Swal.fire(
-                        `Sukses!`,
-                        `Sukses ubah data pengguna ${this.add.level}!`,
+                        `Success!`,
+                        `Successfully changed user data ${this.add.level}!`,
                         'success'
                         )
 
                 }).catch(error => {
                     let statusCode = error.response.status;
                     if(statusCode == 500) {
-                        this.errors = {"error": "Terjadi kesalahan sistem."};
+                        this.errors = {"error": "A system error occurred."};
                     }else if(statusCode == 400) {
                         console.log(error.response.data)
                         this.errors = error.response.data;
@@ -465,7 +472,7 @@ export default {
                 }).catch(error => {
                     let statusCode = error.response.status;
                     if(statusCode == 500) {
-                        this.errors = {"error": "Terjadi kesalahan sistem."};
+                        this.errors = {"error": "A system error occurred."};
                     }else if(statusCode == 400) {
                         console.log(error.response.data)
                         this.errors = error.response.data;

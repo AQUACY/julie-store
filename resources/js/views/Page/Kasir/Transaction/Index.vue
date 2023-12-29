@@ -6,7 +6,7 @@
             <div class="page-title-box">
                 <div class="row align-items-center">
                     <div class="col-md-8">
-                        <h4 class="page-title m-0">Transaksi</h4>
+                        <h4 class="page-title m-0">Transactions</h4>
                     </div>
                     <!-- end col -->
                 </div>
@@ -23,19 +23,19 @@
                 <div class="card-body">
                     <div class="row mb-3">
                         <div class="col-8">
-                            <h4 class="mt-0 header-title">Transaksi Baru</h4>
+                            <h4 class="mt-0 header-title">New Transactions</h4>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="">Kode Produk</label>
-                        <input type="text" class="form-control" placeholder="Cari Kode Atau Nama Produk" id="kode-produk" v-model="search" @keyup="searchProduct()">
+                        <input type="text" class="form-control" placeholder="Search for codes or product names" id="kode-produk" v-model="search" @keyup="searchProduct()">
                         <div class="dropdown-search">
                             <ul>
                                 <li v-for="data in productSearch" :key="data.id" @click="addProductToCart(data)"><img :src="`/images/products/${data.image_name}`" alt="" class='dropdown-image'><span><b>{{ data.code.toUpperCase() }}</b> - {{ data.name }}</span></li>
                             </ul>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary float-right" id="btn-tambah-produk">Tambah</button>
+                    <button type="button" class="btn btn-primary float-right" id="btn-tambah-produk">Add</button>
     
                     <div class="form-group">
 

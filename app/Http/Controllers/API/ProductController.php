@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductCollection;
 use App\Model\Product;
 use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -62,7 +63,7 @@ class ProductController extends Controller
         $product->stock = $request->stock;
         $product->description = $request->description;
         $product->category_id = $request->category;
-        $product->slug = str_slug($request->name,'-');
+        $product->slug = Str::slug($request->name,'-');
         $product->price = $request->price;
         $product->ppn = $request->ppn;
         $product->stock = $request->stock;

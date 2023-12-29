@@ -43,14 +43,14 @@
                             <h4 class="mb-3 mt-0 float-right">{{ numberFormat(data.transaksi_bulan_ini) }}</h4>
                         </div>
                         <div>
-                            <span class="badge badge-light text-info"> {{data.peningkatan_transaksi}} </span> <span class="ml-2">Dari bulan lalu</span>
+                            <span class="badge badge-light text-info"> {{data.peningkatan_transaksi}} </span> <span class="ml-2">From Last Month</span>
                         </div>
                     </div>
                     <div class="p-3">
                         <div class="float-right">
                             <a href="#" class="text-white-50"><i class="mdi mdi-cube-outline h5"></i></a>
                         </div>
-                        <p class="font-14 m-0">Bulan lalu : {{ data.transaksi_bulan_lalu }}</p>
+                        <p class="font-14 m-0">Last Month : {{ data.transaksi_bulan_lalu }}</p>
                     </div>
                 </div>
             </div>
@@ -59,18 +59,18 @@
                 <div class="card bg-info mini-stat text-white">
                     <div class="p-3 mini-stat-desc">
                         <div class="clearfix">
-                            <h6 class="text-uppercase mt-0 float-left text-white-50">Pendapatan</h6>
-                            <h4 class="mb-3 mt-0 float-right">Rp {{ numberFormat(data.pendapatan_bulan_ini) }}</h4>
+                            <h6 class="text-uppercase mt-0 float-left text-white-50">Income</h6>
+                            <h4 class="mb-3 mt-0 float-right">Gh₵ {{ numberFormat(data.pendapatan_bulan_ini) }}</h4>
                         </div>
                         <div>
-                            <span class="badge badge-light text-danger"> {{data.peningkatan_pendapatan}} </span> <span class="ml-2">Dari bulan lalu</span>
+                            <span class="badge badge-light text-danger"> {{data.peningkatan_pendapatan}} </span> <span class="ml-2">From Last Month</span>
                         </div>
                     </div>
                     <div class="p-3">
                         <div class="float-right">
                             <a href="#" class="text-white-50"><i class="mdi mdi-buffer h5"></i></a>
                         </div>
-                        <p class="font-14 m-0">Bulan lalu : Rp {{numberFormat(data.pendapatan_bulan_lalu)}}</p>
+                        <p class="font-14 m-0">Last month : Gh₵ {{numberFormat(data.pendapatan_bulan_lalu)}}</p>
                     </div>
                 </div>
             </div>
@@ -78,8 +78,8 @@
                 <div class="card bg-pink mini-stat text-white">
                     <div class="p-3 mini-stat-desc">
                         <div class="clearfix">
-                            <h6 class="text-uppercase mt-0 float-left text-white-50">Harga Rata-rata</h6>
-                            <h4 class="mb-3 mt-0 float-right">Rp {{ numberFormat(data.average_price) }}</h4>
+                            <h6 class="text-uppercase mt-0 float-left text-white-50">AVERAGE PRICE</h6>
+                            <h4 class="mb-3 mt-0 float-right">Gh₵ {{ numberFormat(data.average_price) }}</h4>
                         </div>
                         <div>
                             <span class="badge badge-light text-primary"> 0% </span> <span class="ml-2">From previous period</span>
@@ -98,7 +98,7 @@
                 <div class="card bg-success mini-stat text-white">
                     <div class="p-3 mini-stat-desc">
                         <div class="clearfix">
-                            <h6 class="text-uppercase mt-0 float-left text-white-50">Produk Terjual</h6>
+                            <h6 class="text-uppercase mt-0 float-left text-white-50">Product Sold</h6>
                             <h4 class="mb-3 mt-0 float-right">{{ data.product_sold }}</h4>
                         </div>
                         <div>
@@ -109,7 +109,7 @@
                         <div class="float-right">
                             <a href="#" class="text-white-50"><i class="mdi mdi-briefcase-check h5"></i></a>
                         </div>
-                        <p class="font-14 m-0">Bulan lalu : {{ data.product_sold_lastmo }}</p>
+                        <p class="font-14 m-0">Last Month : {{ data.product_sold_lastmo }}</p>
                     </div>
                 </div>
             </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryCollection;
 use App\Model\Category;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -43,7 +44,7 @@ class CategoryController extends Controller
             'photo' => 'required',
         ]);
         $name =  $request->name;
-        $slug = str_slug($name,'-');
+        $slug = Str::slug($name,'-');
         $description = $request->description;
         $image = $request->file('photo');
 
@@ -95,7 +96,7 @@ class CategoryController extends Controller
     {
         $name = $request->name;
         $description = $request->description;
-        $slug = str_slug($name);
+        $slug =Str::slug($name);
 
 
         if($request->hasFile('photo')) {

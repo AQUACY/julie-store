@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Http\Resources\CustomerCollection;
 use Validator;
 
+
 class CustomerController extends Controller
 {
     /**
@@ -80,7 +81,9 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+        // return $user;
+        return $customer;
     }
 
     /**
@@ -91,7 +94,8 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+        return $customer;
     }
 
     /**
@@ -103,7 +107,32 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'alamat' => 'required',
+            'phone' => 'required',
+            'provinsi' => 'required',
+            'kota' => 'required',
+            'email' => 'required|email',
+            'photo' => 'nullable'
+            // 'photo' => 'nullable|image'
+        ]);
+        $update = Customer::find($id);
+        $update->name = $request->name;
+        $update->alamat = $request->alamat;
+        $update->phone = $request->phone;
+        $update->provinsi = $request->provinsi;
+        $update->kota = $request->kota;
+        $update->email = $request->email;
+        if($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $image_name = $photo->getClientOriginalName();
+            $photo->move(public_path('images/customers'), $image_name);
+            $update->image_name = $image_name;
+        }
+
+        $update->save();
+        return response()->json(['status'=>'success']);
     }
 
     /**

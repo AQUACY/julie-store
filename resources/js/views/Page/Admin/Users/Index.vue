@@ -43,7 +43,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                                 </div>
-                                    <input type="text" class="form-control" placeholder="Serach User Name / Email"  aria-describedby="basic-addon1" v-model="search" @keyup="searchData">
+                                    <input type="text" class="form-control" placeholder="Search UserName / Email"  aria-describedby="basic-addon1" v-model="search" @keyup="searchData">
                                 </div>
                             </div>
                         </div>
@@ -426,8 +426,8 @@ export default {
                     this.displayData();
                     setTimeout(() => {
                         Swal.fire(
-                        `Sukses!`,
-                        `Sukses tambah ${this.add.level}!`,
+                        `Success!`,
+                        `Successfully added ${this.add.level}!`,
                         'success'
                         )
                     }, 200);

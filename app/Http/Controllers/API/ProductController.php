@@ -16,10 +16,18 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+//    original code that didn't search the database 
+    // public function index(Request $request)
+    // {
+    //     return new ProductCollection(Product::where('name', 'LIKE', "%$request->search%")->where('code', 'LIKE', "%$request->search%")->orderBy('id','desc')->paginate(10));
+    // }
+
+    // revised one that works by searching only the name
     public function index(Request $request)
     {
-        return new ProductCollection(Product::where('name', 'LIKE', "%$request->search%")->where('code', 'LIKE', "%$request->search%")->orderBy('id','desc')->paginate(10));
+        return new ProductCollection(Product::where('name', 'LIKE', "%$request->search%")->orderBy('id','desc')->paginate(10));
     }
+
 
     /**
      * Show the form for creating a new resource.

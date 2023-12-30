@@ -113,6 +113,48 @@
                     </div>
                 </div>
             </div>
+
+            <!-- money invested by bought price -->
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-success mini-stat text-white">
+                    <div class="p-3 mini-stat-desc">
+                        <div class="clearfix">
+                            <h6 class="text-uppercase mt-0 float-left text-white-50">PRODUCTS AVAILABLE IN MONEY (SELLING PRICE)</h6>
+                            <h4 class="mb-3 mt-0 float-right">Gh₵ {{ formatPrice(totalMoneyselling) }}</h4>
+                        </div>
+                        <div>
+                            <span class="badge badge-light text-info"> +89% </span> <span class="ml-2">From previous period</span>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div class="float-right">
+                            <a href="#" class="text-white-50"><i class="mdi mdi-briefcase-check h5"></i></a>
+                        </div>
+                        <p class="font-14 m-0">Last Month : {{ data.product_sold_lastmo }}</p>
+                    </div>
+                </div>
+            </div>
+<!-- profit by BOUGHT price -->
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-success mini-stat text-white">
+                    <div class="p-3 mini-stat-desc">
+                        <div class="clearfix">
+                            <h6 class="text-uppercase mt-0 float-left text-white-50">PRODUCTS AVAILABLE IN MONEY (BOUGHT PRICE)</h6>
+                            <h4 class="mb-3 mt-0 float-right">Gh₵ {{ formatPrice(totalMoneybought) }}</h4>
+                        </div>
+                        <div>
+                            <span class="badge badge-light text-info"></span> <span class="ml-2"></span>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div class="float-right">
+                            <a href="#" class="text-white-50"><i class="mdi mdi-briefcase-check h5"></i></a>
+                        </div>
+                        <!-- <p class="font-14 m-0">Last Month : {{ data.product_sold_lastmo }}</p> -->
+                    </div>
+                </div>
+            </div>
+
             <!-- this is the begining of the product checking table -->
 
         </div>  
@@ -122,7 +164,7 @@
                 <div class="page-title-box">
                     <div class="row align-items-center">
                         <div class="col-md-8">
-                            <h4 class="page-title m-0 text-red">Products that need re-stocking</h4>
+                            <h4 class="page-title m-0 text-red">Products that need re-stocking - go to products page to restock</h4>
                         </div>
                         <div class="col-md-4">
                             <div class="float-right d-none d-md-block">
@@ -214,7 +256,9 @@ export default {
         this.displayData();
         this.displayDatas(this.page, this.search);
         this.getCategories();
+        // this.getallProducts();
         console.log(this.categories);
+        this.fetchProducts();
     },
     
 
@@ -231,6 +275,9 @@ export default {
             current_page: this.$route.query.page || 1, 
             next_page_url: '',
             prev_page_url: '',
+            allproducts: [],
+            totalMoneybought: 0,
+            totalMoneyselling: 0, 
         }
     },
 
@@ -241,6 +288,28 @@ export default {
                     this.data = res.data;
                     console.log(this.data);
                 })
+        },
+        fetchProducts(){
+            axios.get('/api/v1/product')
+        .then(response => {
+          this.allproducts = response.data.data;
+          console.log('this is where all products data are stored',this.allproducts)
+          this.calculateTotalMoney();
+        })
+        .catch(error => {
+          console.error('Error fetching products:', error);
+        });
+        },
+        calculateTotalMoney(){
+             // Calculate the total money based on stock and selling price
+                this.totalMoneybought = this.allproducts.reduce((total, allproduct) => {
+                    return total + (allproduct.stock * allproduct.buy_price);
+                }, 0);
+
+                this.totalMoneyselling = this.allproducts.reduce((total, allproduct) => {
+                    return total + (allproduct.stock * allproduct.price);
+                }, 0);
+                // console.log('this is the total money',this.totalMoney)
         },
         displayDatas(page = 1, search= '') {
             axios.get('/api/v1/product', { params: { search: this.search, page: this.page } })
@@ -277,6 +346,11 @@ export default {
             this.displayData(1, this.search);
             window.history.replaceState(null, null, "?page=1");
         },
+        formatPrice(value) {
+      // Function to format the price for display
+      let val = (value / 1).toFixed(2).replace(',', ',');
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
 
     }
 }

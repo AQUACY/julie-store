@@ -3933,7 +3933,9 @@ __webpack_require__.r(__webpack_exports__);
     this.displayData();
     this.displayDatas(this.page, this.search);
     this.getCategories();
+    // this.getallProducts();
     console.log(this.categories);
+    this.fetchProducts();
   },
   data: function data() {
     return {
@@ -3947,7 +3949,10 @@ __webpack_require__.r(__webpack_exports__);
       last_page: null,
       current_page: this.$route.query.page || 1,
       next_page_url: '',
-      prev_page_url: ''
+      prev_page_url: '',
+      allproducts: [],
+      totalMoneybought: 0,
+      totalMoneyselling: 0
     };
   },
   methods: {
@@ -3958,8 +3963,28 @@ __webpack_require__.r(__webpack_exports__);
         console.log(_this.data);
       });
     },
-    displayDatas: function displayDatas() {
+    fetchProducts: function fetchProducts() {
       var _this2 = this;
+      axios.get('/api/v1/product').then(function (response) {
+        _this2.allproducts = response.data.data;
+        console.log('this is where all products data are stored', _this2.allproducts);
+        _this2.calculateTotalMoney();
+      })["catch"](function (error) {
+        console.error('Error fetching products:', error);
+      });
+    },
+    calculateTotalMoney: function calculateTotalMoney() {
+      // Calculate the total money based on stock and selling price
+      this.totalMoneybought = this.allproducts.reduce(function (total, allproduct) {
+        return total + allproduct.stock * allproduct.buy_price;
+      }, 0);
+      this.totalMoneyselling = this.allproducts.reduce(function (total, allproduct) {
+        return total + allproduct.stock * allproduct.price;
+      }, 0);
+      // console.log('this is the total money',this.totalMoney)
+    },
+    displayDatas: function displayDatas() {
+      var _this3 = this;
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       var search = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
       axios.get('/api/v1/product', {
@@ -3969,19 +3994,19 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (result) {
         console.log(result.data);
-        _this2.products = result.data.data;
-        _this2.last_page = result.data.meta.last_page;
-        _this2.current_page = result.data.meta.current_page;
-        _this2.next_page_url = result.data.links.next;
-        _this2.prev_page_url = result.data.links.prev;
+        _this3.products = result.data.data;
+        _this3.last_page = result.data.meta.last_page;
+        _this3.current_page = result.data.meta.current_page;
+        _this3.next_page_url = result.data.links.next;
+        _this3.prev_page_url = result.data.links.prev;
       });
     },
     getCategories: function getCategories() {
-      var _this3 = this;
+      var _this4 = this;
       axios.get("/api/v1/category").then(function (res) {
-        _this3.categories = res.data.data;
+        _this4.categories = res.data.data;
       })["catch"](function (err) {
-        _this3.errors = err.response.data;
+        _this4.errors = err.response.data;
       });
     },
     nextPage: function nextPage() {
@@ -3997,6 +4022,11 @@ __webpack_require__.r(__webpack_exports__);
     searchData: function searchData() {
       this.displayData(1, this.search);
       window.history.replaceState(null, null, "?page=1");
+    },
+    formatPrice: function formatPrice(value) {
+      // Function to format the price for display
+      var val = (value / 1).toFixed(2).replace(',', ',');
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
   }
 });
@@ -4014,10 +4044,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -4026,7 +4052,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     console.log(this.categories);
   },
   data: function data() {
-    return _defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty({
+    return {
       edit: {
         id: '',
         name: '',
@@ -4052,14 +4078,29 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         buy_price: '',
         restock_bal: ''
       },
+      tabs: [{
+        name: "All Products"
+      }, {
+        name: "Low Stock Products"
+      }],
+      activeTab: 0,
+      description: '',
       search: '',
-      description: ''
-    }, "search", ''), "products", []), "categories", []), "errors", []), "page", 1), "first_page", 1), "last_page", null), "current_page", this.$route.query.page || 1), "next_page_url", ''), "prev_page_url", '');
+      products: [],
+      categories: [],
+      errors: [],
+      page: 1,
+      first_page: 1,
+      last_page: null,
+      current_page: this.$route.query.page || 1,
+      next_page_url: '',
+      prev_page_url: ''
+    };
   },
   computed: {
     lowStockProducts: function lowStockProducts() {
       return this.products.filter(function (product) {
-        return product.stock <= 5;
+        return product.restock_bal >= product.stock;
       });
     }
   },
@@ -4264,6 +4305,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     resetDisplayData: function resetDisplayData() {
       // Reset to display all products
       this.displayData();
+    },
+    changeTab: function changeTab(index) {
+      this.activeTab = index;
     }
   }
 });
@@ -4540,7 +4584,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         $('#modalAdd').modal('toggle');
         _this5.displayData();
         setTimeout(function () {
-          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire("Sukses!", "Sukses tambah ".concat(_this5.add.level, "!"), 'success');
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire("Success!", "Successfully added ".concat(_this5.add.level, "!"), 'success');
         }, 200);
       })["catch"](function (error) {
         var statusCode = error.response.status;
@@ -7455,7 +7499,35 @@ var render = function render() {
     staticClass: "p-3"
   }, [_vm._m(6), _vm._v(" "), _c("p", {
     staticClass: "font-14 m-0"
-  }, [_vm._v("Last Month : " + _vm._s(_vm.data.product_sold_lastmo))])])])])]), _vm._v(" "), _vm._m(7), _vm._v(" "), _c("div", {
+  }, [_vm._v("Last Month : " + _vm._s(_vm.data.product_sold_lastmo))])])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-xl-3 col-md-6"
+  }, [_c("div", {
+    staticClass: "card bg-success mini-stat text-white"
+  }, [_c("div", {
+    staticClass: "p-3 mini-stat-desc"
+  }, [_c("div", {
+    staticClass: "clearfix"
+  }, [_c("h6", {
+    staticClass: "text-uppercase mt-0 float-left text-white-50"
+  }, [_vm._v("PRODUCTS AVAILABLE IN MONEY (SELLING PRICE)")]), _vm._v(" "), _c("h4", {
+    staticClass: "mb-3 mt-0 float-right"
+  }, [_vm._v("Gh₵ " + _vm._s(_vm.formatPrice(_vm.totalMoneyselling)))])]), _vm._v(" "), _vm._m(7)]), _vm._v(" "), _c("div", {
+    staticClass: "p-3"
+  }, [_vm._m(8), _vm._v(" "), _c("p", {
+    staticClass: "font-14 m-0"
+  }, [_vm._v("Last Month : " + _vm._s(_vm.data.product_sold_lastmo))])])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-xl-3 col-md-6"
+  }, [_c("div", {
+    staticClass: "card bg-success mini-stat text-white"
+  }, [_c("div", {
+    staticClass: "p-3 mini-stat-desc"
+  }, [_c("div", {
+    staticClass: "clearfix"
+  }, [_c("h6", {
+    staticClass: "text-uppercase mt-0 float-left text-white-50"
+  }, [_vm._v("PRODUCTS AVAILABLE IN MONEY (BOUGHT PRICE)")]), _vm._v(" "), _c("h4", {
+    staticClass: "mb-3 mt-0 float-right"
+  }, [_vm._v("Gh₵ " + _vm._s(_vm.formatPrice(_vm.totalMoneybought)))])]), _vm._v(" "), _vm._m(9)]), _vm._v(" "), _vm._m(10)])])]), _vm._v(" "), _vm._m(11), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "table-responsive"
@@ -7464,7 +7536,7 @@ var render = function render() {
     attrs: {
       id: "category-table"
     }
-  }, [_vm._m(8), _vm._v(" "), _c("tbody", {
+  }, [_vm._m(12), _vm._v(" "), _c("tbody", {
     staticClass: "color=red"
   }, _vm._l(_vm.products, function (product) {
     return product.restock_bal >= product.stock ? _c("tr", {
@@ -7543,7 +7615,7 @@ var staticRenderFns = [function () {
     }
   }, [_c("i", {
     staticClass: "ti-settings mr-1"
-  }), _vm._v(" Settings\n                                ")]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Settings\n                                    ")]), _vm._v(" "), _c("div", {
     staticClass: "dropdown-menu dropdown-menu-right dropdown-menu-animated"
   }, [_c("a", {
     staticClass: "dropdown-item",
@@ -7643,6 +7715,50 @@ var staticRenderFns = [function () {
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
+  return _c("div", [_c("span", {
+    staticClass: "badge badge-light text-info"
+  }, [_vm._v(" +89% ")]), _vm._v(" "), _c("span", {
+    staticClass: "ml-2"
+  }, [_vm._v("From previous period")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "float-right"
+  }, [_c("a", {
+    staticClass: "text-white-50",
+    attrs: {
+      href: "#"
+    }
+  }, [_c("i", {
+    staticClass: "mdi mdi-briefcase-check h5"
+  })])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", [_c("span", {
+    staticClass: "badge badge-light text-info"
+  }), _vm._v(" "), _c("span", {
+    staticClass: "ml-2"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "p-3"
+  }, [_c("div", {
+    staticClass: "float-right"
+  }, [_c("a", {
+    staticClass: "text-white-50",
+    attrs: {
+      href: "#"
+    }
+  }, [_c("i", {
+    staticClass: "mdi mdi-briefcase-check h5"
+  })])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
   return _c("div", {
     staticClass: "row"
   }, [_c("div", {
@@ -7655,7 +7771,7 @@ var staticRenderFns = [function () {
     staticClass: "col-md-8"
   }, [_c("h4", {
     staticClass: "page-title m-0 text-red"
-  }, [_vm._v("Products that need re-stocking")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Products that need re-stocking - go to products page to restock")])]), _vm._v(" "), _c("div", {
     staticClass: "col-md-4"
   }, [_c("div", {
     staticClass: "float-right d-none d-md-block"
@@ -7728,21 +7844,64 @@ var render = function render() {
         _vm.search = $event.target.value;
       }
     }
-  })])])]), _vm._v(" "), _c("b-tabs", [_c("b-tab", {
-    attrs: {
-      title: "All Products"
-    }
-  }, [_c("div", {
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "tab-container"
+  }, _vm._l(_vm.tabs, function (tab, index) {
+    return _c("div", {
+      key: index,
+      staticClass: "tab",
+      "class": {
+        "active-tab": _vm.activeTab === index
+      },
+      on: {
+        click: function click($event) {
+          return _vm.changeTab(index);
+        }
+      }
+    }, [_vm._v("\n      " + _vm._s(tab.name) + "\n    ")]);
+  }), 0), _vm._v(" "), _c("div", {
+    staticClass: "tab-content"
+  }, [_vm.activeTab === 0 ? _c("div", [_c("div", {
     staticClass: "table-responsive"
   }, [_c("table", {
     staticClass: "table table-hover table-lg",
     attrs: {
       id: "category-table"
     }
-  }, [_c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Code")]), _vm._v(" "), _c("th", [_vm._v("Name")]), _vm._v(" "), _c("th", [_vm._v("Stock")]), _vm._v(" "), _c("th", [_vm._v("Price")]), _vm._v(" "), _c("th", [_vm._v("Action")])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.products, function (product) {
-    return _c("tr", {
+  }, [_vm._m(3), _vm._v(" "), _vm._l(_vm.products, function (product) {
+    return _c("tbody", {
       key: product.id
+    }, [product.restock_bal >= product.stock ? _c("tr", {
+      staticStyle: {
+        "background-color": "#DF4D40"
+      }
     }, [_c("td", [_vm._v(_vm._s(product.id))]), _vm._v(" "), _c("td", [_c("b", [_vm._v(_vm._s(product.code))])]), _vm._v(" "), _c("td", [_c("img", {
+      staticClass: "image-table",
+      attrs: {
+        src: "/images/products/".concat(product.image_name),
+        alt: "Gambar"
+      }
+    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(product.name))])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.stock))]), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.formatPrice(product.price)))]), _vm._v(" "), _c("td", [_c("button", {
+      staticClass: "btn btn-warning",
+      attrs: {
+        type: "button"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.editProduct(product.id);
+        }
+      }
+    }, [_vm._v("Add More Stock")]), _vm._v(" "), _c("button", {
+      staticClass: "btn btn-danger",
+      attrs: {
+        type: "button"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.deleteProduct(product.id);
+        }
+      }
+    }, [_vm._v("Delete")])])]) : _c("tr", [_c("td", [_vm._v(_vm._s(product.id))]), _vm._v(" "), _c("td", [_c("b", [_vm._v(_vm._s(product.code))])]), _vm._v(" "), _c("td", [_c("img", {
       staticClass: "image-table",
       attrs: {
         src: "/images/products/".concat(product.image_name),
@@ -7768,7 +7927,78 @@ var render = function render() {
           return _vm.deleteProduct(product.id);
         }
       }
-    }, [_vm._v("Delete")])])]);
+    }, [_vm._v("Delete")])])])]);
+  })], 2)]), _vm._v(" "), _c("nav", {
+    staticClass: "float-right",
+    attrs: {
+      "aria-label": "Page navigation example"
+    }
+  }, [_c("ul", {
+    staticClass: "pagination"
+  }, [_c("li", {
+    staticClass: "page-item"
+  }, [this.current_page !== this.first_page ? _c("button", {
+    staticClass: "page-link",
+    attrs: {
+      href: "#"
+    },
+    on: {
+      click: _vm.prevPage
+    }
+  }, [_vm._v("Previous")]) : _vm._e()]), _vm._v(" "), _c("li", {
+    staticClass: "page-item"
+  }, [_c("button", {
+    staticClass: "page-link",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(this.current_page))])]), _vm._v(" "), _c("li", {
+    staticClass: "page-item"
+  }, [this.current_page !== this.last_page ? _c("button", {
+    staticClass: "page-link",
+    attrs: {
+      href: "#"
+    },
+    on: {
+      click: _vm.nextPage
+    }
+  }, [_vm._v("Next")]) : _vm._e()])])])]) : _vm._e(), _vm._v(" "), _vm.activeTab === 1 ? _c("div", [_c("div", {
+    staticClass: "table-responsive"
+  }, [_c("table", {
+    staticClass: "table table-hover table-lg",
+    attrs: {
+      id: "category-table"
+    }
+  }, [_vm._m(4), _vm._v(" "), _c("tbody", _vm._l(_vm.products, function (product) {
+    return product.restock_bal >= product.stock ? _c("tr", {
+      key: product.id
+    }, [_c("td", [_vm._v(_vm._s(product.id))]), _vm._v(" "), _c("td", [_c("b", [_vm._v(_vm._s(product.code))])]), _vm._v(" "), _c("td", [_c("img", {
+      staticClass: "image-table",
+      attrs: {
+        src: "/images/products/".concat(product.image_name),
+        alt: "Gambar"
+      }
+    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(product.name))])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.stock))]), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.formatPrice(product.price)))]), _vm._v(" "), _c("td", [_c("button", {
+      staticClass: "btn btn-warning",
+      attrs: {
+        type: "button"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.editProduct(product.id);
+        }
+      }
+    }, [_vm._v("Add More Stock")]), _vm._v(" "), _c("button", {
+      staticClass: "btn btn-danger",
+      attrs: {
+        type: "button"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.deleteProduct(product.id);
+        }
+      }
+    }, [_vm._v("Delete")])])]) : _vm._e();
   }), 0)])]), _vm._v(" "), _c("nav", {
     staticClass: "float-right",
     attrs: {
@@ -7803,11 +8033,7 @@ var render = function render() {
     on: {
       click: _vm.nextPage
     }
-  }, [_vm._v("Next")]) : _vm._e()])])])]), _vm._v(" "), _c("b-tab", {
-    attrs: {
-      title: "Low Stock Products"
-    }
-  }, [_c("p", [_vm._v("This is the low stock tab")])])], 1)], 1)])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Next")]) : _vm._e()])])])]) : _vm._e()])])])])]), _vm._v(" "), _c("div", {
     staticClass: "modal fade",
     attrs: {
       id: "modalAdd",
@@ -7823,7 +8049,7 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "modal-content"
-  }, [_vm._m(3), _vm._v(" "), _c("form", {
+  }, [_vm._m(5), _vm._v(" "), _c("form", {
     attrs: {
       action: "",
       method: "POST",
@@ -8125,7 +8351,7 @@ var render = function render() {
     }
   }, [_vm._v("Picture")]), _vm._v(" "), _c("div", {
     staticClass: "input-group mb-3"
-  }, [_vm._m(4), _vm._v(" "), _c("div", {
+  }, [_vm._m(6), _vm._v(" "), _c("div", {
     staticClass: "custom-file"
   }, [_c("input", {
     staticClass: "custom-file-input",
@@ -8145,7 +8371,7 @@ var render = function render() {
     attrs: {
       "for": "inputGroupFile01"
     }
-  }, [_vm._v("Browse")])])])])]), _vm._v(" "), _vm._m(5)])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Browse")])])])])]), _vm._v(" "), _vm._m(7)])])])]), _vm._v(" "), _c("div", {
     staticClass: "modal fade",
     attrs: {
       id: "modalEdit",
@@ -8161,7 +8387,7 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "modal-content"
-  }, [_vm._m(6), _vm._v(" "), _c("form", {
+  }, [_vm._m(8), _vm._v(" "), _c("form", {
     attrs: {
       action: "",
       method: "POST",
@@ -8463,7 +8689,7 @@ var render = function render() {
     }
   }, [_vm._v("Picture")]), _vm._v(" "), _c("div", {
     staticClass: "input-group mb-3"
-  }, [_vm._m(7), _vm._v(" "), _c("div", {
+  }, [_vm._m(9), _vm._v(" "), _c("div", {
     staticClass: "custom-file"
   }, [_c("input", {
     staticClass: "custom-file-input",
@@ -8483,7 +8709,7 @@ var render = function render() {
     attrs: {
       "for": "inputGroupFile01"
     }
-  }, [_vm._v("Browse")])])])])]), _vm._v(" "), _vm._m(8)])])])])]);
+  }, [_vm._v("Browse")])])])])]), _vm._v(" "), _vm._m(10)])])])]), _vm._v(" "), _c("div")]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -8525,7 +8751,7 @@ var staticRenderFns = [function () {
     }
   }, [_c("i", {
     staticClass: "ti-plus mr-1"
-  }), _vm._v(" Add\n                                    ")])])])])]);
+  }), _vm._v(" Add\n                                      ")])])])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -8539,6 +8765,14 @@ var staticRenderFns = [function () {
   }, [_c("i", {
     staticClass: "fas fa-search"
   })])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Code")]), _vm._v(" "), _c("th", [_vm._v("Name")]), _vm._v(" "), _c("th", [_vm._v("Stock")]), _vm._v(" "), _c("th", [_vm._v("Price")]), _vm._v(" "), _c("th", [_vm._v("Action")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Code")]), _vm._v(" "), _c("th", [_vm._v("Name")]), _vm._v(" "), _c("th", [_vm._v("Stock")]), _vm._v(" "), _c("th", [_vm._v("Price")]), _vm._v(" "), _c("th", [_vm._v("Action")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -8938,7 +9172,7 @@ var render = function render() {
     staticClass: "form-control",
     attrs: {
       type: "text",
-      placeholder: "Serach User Name / Email",
+      placeholder: "Search UserName / Email",
       "aria-describedby": "basic-addon1"
     },
     domProps: {
@@ -15384,7 +15618,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "\n.image-table {\n    width: 40px;\n    height: 40px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    margin-right: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.image-table {\n        width: 40px;\n        height: 40px;\n        -o-object-fit: cover;\n           object-fit: cover;\n        margin-right: 10px;\n}\n.tab-container {\n  display: flex;\n}\n.tab {\n  cursor: pointer;\n  padding: 10px;\n  border: 1px solid #ccc;\n  background-color: #f1f1f1;\n}\n.active-tab {\n  background-color: #ddd;\n}\n.tab-content {\n  padding: 20px;\n  border: 1px solid #ccc;\n  background-color: #f9f9f9;\n}\n", ""]);
 
 // exports
 

@@ -47,9 +47,20 @@
                                 </div>
                             </div>
                         </div>
-                        <b-tabs>
-                        <!-- code for all products -->
-                        <b-tab title="All Products">
+                            <div class="tab-container">
+      <div
+        v-for="(tab, index) in tabs"
+        :key="index"
+        @click="changeTab(index)"
+        :class="{ 'active-tab': activeTab === index }"
+        class="tab"
+      >
+        {{ tab.name }}
+      </div>
+    </div>
+
+    <div class="tab-content">
+      <div v-if="activeTab === 0">
                             <div class="table-responsive">
                             <table class="table table-hover table-lg" id='category-table'>
                                 <thead>
@@ -62,8 +73,25 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr v-for="product in products" v-bind:key='product.id'>
+                                <tbody v-for="product in products" v-bind:key='product.id'>
+                                    <tr v-if="product.restock_bal >= product.stock" style="background-color:#DF4D40">
+                                        <td>{{ product.id }}</td>
+                                        <td><b>{{ product.code }}</b></td>
+
+                                        <td>
+                                            <img :src="`/images/products/${product.image_name}`" alt="Gambar" class='image-table'>
+                                            <span>{{ product.name }}</span>
+                                        </td>
+                                        
+                                        <td>{{ product.stock }}</td>
+                                        <td>Gh₵ {{ formatPrice(product.price) }}</td>
+                                        <td>
+                                            <button type="button" class='btn btn-warning' @click="editProduct(product.id)">Add More Stock</button>
+                                            <button type="button" @click="deleteProduct(product.id)" class="btn btn-danger">Delete</button>
+                                        </td>
+                                    </tr>
+
+                                    <tr v-else>
                                         <td>{{ product.id }}</td>
                                         <td><b>{{ product.code }}</b></td>
 
@@ -89,12 +117,53 @@
                                     <li class="page-item"><button class="page-link" href="#" @click="nextPage" v-if="this.current_page !== this.last_page">Next</button></li>
                                 </ul>
                             </nav>
-                         </b-tab>
-                         <b-tab title="Low Stock Products">
-          <!-- ... (existing code for displaying low stock products) ... -->
-                            <p>This is the low stock tab</p>
-                        </b-tab>
-                    </b-tabs>
+                         
+    </div>
+    <!-- tab for low stock -->
+      <div v-if="activeTab === 1">
+        <div class="table-responsive">
+                            <table class="table table-hover table-lg" id='category-table'>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Code</th>
+                                        <th>Name</th>
+                                        <th>Stock</th>
+                                        <th>Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="product in products" v-bind:key='product.id' v-if="product.restock_bal >= product.stock">
+                                        <td>{{ product.id }}</td>
+                                        <td><b>{{ product.code }}</b></td>
+
+                                        <td>
+                                            <img :src="`/images/products/${product.image_name}`" alt="Gambar" class='image-table'>
+                                            <span>{{ product.name }}</span>
+                                        </td>
+                                        
+                                        <td>{{ product.stock }}</td>
+                                        <td>Gh₵ {{ formatPrice(product.price) }}</td>
+                                        <td>
+                                            <button type="button" class='btn btn-warning' @click="editProduct(product.id)">Add More Stock</button>
+                                            <button type="button" @click="deleteProduct(product.id)" class="btn btn-danger">Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <nav aria-label="Page navigation example" class="float-right">
+                                <ul class="pagination">
+                                    <li class="page-item"><button class="page-link" href="#" v-if="this.current_page !== this.first_page" @click="prevPage">Previous</button></li>
+                                    <li class="page-item"><button class="page-link" href="#">{{ this.current_page }}</button></li>
+                                    <li class="page-item"><button class="page-link" href="#" @click="nextPage" v-if="this.current_page !== this.last_page">Next</button></li>
+                                </ul>
+                            </nav>
+                         
+    </div>
+    </div>
+                       
                         
                     </div>
                 </div>
@@ -282,7 +351,9 @@
             </div>
         </div>
 
-        <!-- end row -->            
+        <!-- end row -->      
+        <div>
+  </div>      
 
     </div><!-- container fluid -->
 
@@ -324,7 +395,11 @@ export default {
                 buy_price:'',
                 restock_bal:'',
             },
-            search: '',
+            tabs: [
+                { name: "All Products" },
+                { name: "Low Stock Products" }
+            ],
+      activeTab: 0,
             description: '',
             search: '',
             products: [],
@@ -341,7 +416,7 @@ export default {
     },
     computed: {
       lowStockProducts() {
-        return this.products.filter(product => product.stock <= 5);
+        return this.products.filter(product => product.restock_bal >= product.stock);
       },
     },
     methods: {  
@@ -566,6 +641,9 @@ export default {
         // Reset to display all products
         this.displayData();
       },
+      changeTab(index) {
+      this.activeTab = index;
+    }
         
     }
 }
@@ -577,4 +655,24 @@ export default {
         object-fit: cover;
         margin-right: 10px;;
     }
+    .tab-container {
+  display: flex;
+}
+
+.tab {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+.active-tab {
+  background-color: #ddd;
+}
+
+.tab-content {
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
 </style>

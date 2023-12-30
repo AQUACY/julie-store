@@ -4426,6 +4426,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       axios.get("/api/v1/transaction/history/all").then(function (res) {
         _this.transactions = res.data.data;
+        console.log(_this.transactions);
       });
     }
   }
@@ -9087,7 +9088,7 @@ var render = function render() {
       return index == 0 ? _c("span", {
         key: index
       }, [_vm._v(_vm._s(detail.product.name))]) : _vm._e();
-    }), _vm._v(" "), data.details.length > 1 ? _c("span", [_vm._v(" " + _vm._s(data.details.length - 1) + " ")]) : _vm._e()], 2), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.numberFormat(data.total)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.moment(data.created_at).format("DD MMMM YYYY")))]), _vm._v(" "), _c("td", [_c("router-link", {
+    }), _vm._v(" "), data.details.length > 1 ? _c("span", [_vm._v(" " + _vm._s(data.details.length - 1) + " ")]) : _vm._e()], 2), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.numberFormat(data.total)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.moment(data.created_at).locale("en").format("DD MMMM YYYY")))]), _vm._v(" "), _c("td", [_c("router-link", {
       staticClass: "btn btn-primary btn-sm",
       attrs: {
         to: {
@@ -10449,7 +10450,7 @@ var render = function render() {
       return index == 0 ? _c("span", {
         key: index
       }, [_vm._v(_vm._s(detail.product.name))]) : _vm._e();
-    }), _vm._v(" "), data.details.length > 1 ? _c("span", [_vm._v("dan " + _vm._s(data.details.length - 1) + " lainnya")]) : _vm._e()], 2), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.customer.name))]), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.numberFormat(data.total)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.moment(data.created_at).format("DD MMMM YYYY")))]), _vm._v(" "), _c("td", [_c("router-link", {
+    }), _vm._v(" "), data.details.length > 1 ? _c("span", [_vm._v("dan " + _vm._s(data.details.length - 1) + " lainnya")]) : _vm._e()], 2), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.customer.name))]), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.numberFormat(data.total)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.moment(data.created_at).locale("en").format("DD MMMM YYYY")))]), _vm._v(" "), _c("td", [_c("router-link", {
       staticClass: "btn btn-primary btn-sm",
       attrs: {
         to: {
@@ -90987,8 +90988,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/aquacy/pos/julie-store/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/aquacy/pos/julie-store/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/aquacy/final/julie-store/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/aquacy/final/julie-store/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -48,7 +48,8 @@
                                     <td>{{ data.customer == null ? 'Deleted' : data.customer.name }}</td>
                                     <td><span v-for="(detail, index) in data.details" :key="index" v-if="index ==0">{{ detail.product.name }}</span> <span v-if="data.details.length > 1"> {{ data.details.length - 1 }} </span></td>
                                     <td>Gh₵ {{ numberFormat(data.total) }}</td>
-                                    <td>{{ moment(data.created_at).format('DD MMMM YYYY') }}</td>
+                                    <td>{{ moment(data.created_at).locale('en').format('DD MMMM YYYY') }}</td>
+                                    <!-- <td>{{ moment(data.created_at).format('DD MMMM YYYY') }}</td> -->
                                     <td>
                                         <router-link  :to="{ path: `/transaksi/invoice/${data.invoice}` }" class="btn btn-primary btn-sm">Invoice</router-link>
                                     </td>
@@ -85,6 +86,7 @@ export default {
            axios.get("/api/v1/transaction/history/all")
             .then(res => {
                 this.transactions = res.data.data
+                console.log(this.transactions)
             });
        },
     }

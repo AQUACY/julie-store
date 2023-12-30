@@ -19,7 +19,7 @@ class SiswaController extends Controller
         $siswa->alamat = $request->alamat;
         $siswa->nohp = $request->nohp;
         $siswa->save();
-        return "Data berhasil";
+        return "Data successfully saved";
     }
 
     public function update(Request $request, $id) {
@@ -34,14 +34,14 @@ class SiswaController extends Controller
         $siswa->nohp = nohp;
         $siswa->save();
 
-        return response()->json(['status' => true, 'message' => 'Data berhasil diupdate']);
+        return response()->json(['status' => true, 'message' => 'Data updated successfully']);
     }
 
     public function delete($id) {
         $siswa = Siswa::find($id);
         $siswa->delete();
 
-        return response()->json(['status'=>true,'message'=>'Data berhasil dihapus!']);
+        return response()->json(['status'=>true,'message'=>'Data deleted successfully!']);
     }
 
 

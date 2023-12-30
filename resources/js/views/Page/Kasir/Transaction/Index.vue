@@ -290,8 +290,8 @@ export default {
                     console.log(res.data);
                     if(res.data.status == true) {
                         Swal.fire(
-                            `Sukses!`,
-                            `Sukses Membuat Pesanan`,
+                            `Success!`,
+                            `Order Successful`,
                             'success'
                             );
 

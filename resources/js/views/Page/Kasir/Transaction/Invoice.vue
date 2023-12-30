@@ -104,15 +104,15 @@
                                                                     
                                                                     <tr v-for="order_detail in data_order.details" v-bind:key="order_detail.id">
                                                                         <td>{{order_detail.product.name}}</td>
-                                                                        <td class="text-center">Rp {{ numberFormat(order_detail.price - order_detail.ppn) }}</td>
+                                                                        <td class="text-center">Gh₵ {{ numberFormat(order_detail.price - order_detail.ppn) }}</td>
                                                                         <td class="text-center">{{ order_detail.quantity }}</td>
-                                                                        <td class="text-right">Rp {{ numberFormat(order_detail.subtotal - order_detail.ppn*order_detail.quantity)}}</td>
+                                                                        <td class="text-right">Gh₵ {{ numberFormat(order_detail.subtotal - order_detail.ppn*order_detail.quantity)}}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="no-line"></td>
                                                                         <td class="no-line"></td>
                                                                         <td class="no-line text-center">
-                                                                            <strong>PPN</strong></td>
+                                                                            <strong>VAT</strong></td>
                                                                         <td class="no-line text-right">Gh₵ {{  numberFormat(totalPPN) }} </span></td>
                                                                     </tr>
                                                                     <tr>

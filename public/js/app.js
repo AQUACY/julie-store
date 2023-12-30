@@ -4264,11 +4264,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteProduct: function deleteProduct(id) {
       alertify.confirm("Are you sure you want to delete?", function (ev) {
+        var _this6 = this;
         ev.preventDefault();
-        var that = this;
+        // let that = this
         axios["delete"]("/api/v1/product/".concat(id)).then(function (res) {
           console.log(res);
-          that.displayData();
+          _this6.displayData();
           alertify.success("Successfully deleted product!");
         });
       });
@@ -4816,7 +4817,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         console.log(res.data);
         if (res.data.status == true) {
-          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire("Sukses!", "Sukses Membuat Pesanan", 'success');
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire("Success!", "Order Successful", 'success');
           _this2.cart = [], _this2.kembalian = 0;
           _this2.totalPrice = 0;
           _this2.bayar = 0;
@@ -8216,7 +8217,7 @@ var render = function render() {
       id: "stock",
       type: "number",
       name: "stock",
-      placeholder: "Stok barang"
+      placeholder: "Stock Balance"
     },
     domProps: {
       value: _vm.add.stock
@@ -8237,8 +8238,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.add.stock,
-      expression: "add.stock"
+      value: _vm.add.restock_bal,
+      expression: "add.restock_bal"
     }],
     staticClass: "form-control",
     attrs: {
@@ -8248,12 +8249,12 @@ var render = function render() {
       placeholder: "Balance threshold for restocking"
     },
     domProps: {
-      value: _vm.add.stock
+      value: _vm.add.restock_bal
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.add, "stock", $event.target.value);
+        _vm.$set(_vm.add, "restock_bal", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("div", {
@@ -10974,11 +10975,11 @@ var render = function render() {
       key: order_detail.id
     }, [_c("td", [_vm._v(_vm._s(order_detail.product.name))]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
-    }, [_vm._v("Rp " + _vm._s(_vm.numberFormat(order_detail.price - order_detail.ppn)))]), _vm._v(" "), _c("td", {
+    }, [_vm._v("Gh₵ " + _vm._s(_vm.numberFormat(order_detail.price - order_detail.ppn)))]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
     }, [_vm._v(_vm._s(order_detail.quantity))]), _vm._v(" "), _c("td", {
       staticClass: "text-right"
-    }, [_vm._v("Rp " + _vm._s(_vm.numberFormat(order_detail.subtotal - order_detail.ppn * order_detail.quantity)))])]);
+    }, [_vm._v("Gh₵ " + _vm._s(_vm.numberFormat(order_detail.subtotal - order_detail.ppn * order_detail.quantity)))])]);
   }), _vm._v(" "), _c("tr", [_c("td", {
     staticClass: "no-line"
   }), _vm._v(" "), _c("td", {
@@ -11092,7 +11093,7 @@ var staticRenderFns = [function () {
     _c = _vm._self._c;
   return _c("td", {
     staticClass: "no-line text-center"
-  }, [_c("strong", [_vm._v("PPN")])]);
+  }, [_c("strong", [_vm._v("VAT")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;

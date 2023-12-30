@@ -215,13 +215,13 @@
                                 <div class="form-group">
                                     <label for="email">Stock</label>
                                     <input id="stock" type="number" class="form-control"
-                                        name="stock" placeholder="Stok barang" v-model="add.stock">
+                                        name="stock" placeholder="Stock Balance" v-model="add.stock">
                              
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Restock Level</label>
                                     <input id="stock" type="number" class="form-control"
-                                        name="stock" placeholder="Balance threshold for restocking" v-model="add.stock">
+                                        name="stock" placeholder="Balance threshold for restocking" v-model="add.restock_bal">
                              
                                 </div>
                                 <div class="form-group">
@@ -591,11 +591,11 @@ export default {
         deleteProduct(id) {
             alertify.confirm("Are you sure you want to delete?", function (ev) {
                 ev.preventDefault();
-                let that = this
+                // let that = this
                 axios.delete(`/api/v1/product/${id}`)
                     .then(res => {
                         console.log(res);
-                        that.displayData();
+                        this.displayData();
                         alertify.success("Successfully deleted product!");
                     });
                 });

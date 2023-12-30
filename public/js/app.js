@@ -3931,10 +3931,23 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     // console.log("INI HOME ADMINz");
     this.displayData();
+    this.displayDatas(this.page, this.search);
+    this.getCategories();
+    console.log(this.categories);
   },
   data: function data() {
     return {
-      data: []
+      data: [],
+      products: [],
+      categories: [],
+      errors: [],
+      search: '',
+      page: 1,
+      first_page: 1,
+      last_page: null,
+      current_page: this.$route.query.page || 1,
+      next_page_url: '',
+      prev_page_url: ''
     };
   },
   methods: {
@@ -3944,6 +3957,46 @@ __webpack_require__.r(__webpack_exports__);
         _this.data = res.data;
         console.log(_this.data);
       });
+    },
+    displayDatas: function displayDatas() {
+      var _this2 = this;
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      var search = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      axios.get('/api/v1/product', {
+        params: {
+          search: this.search,
+          page: this.page
+        }
+      }).then(function (result) {
+        console.log(result.data);
+        _this2.products = result.data.data;
+        _this2.last_page = result.data.meta.last_page;
+        _this2.current_page = result.data.meta.current_page;
+        _this2.next_page_url = result.data.links.next;
+        _this2.prev_page_url = result.data.links.prev;
+      });
+    },
+    getCategories: function getCategories() {
+      var _this3 = this;
+      axios.get("/api/v1/category").then(function (res) {
+        _this3.categories = res.data.data;
+      })["catch"](function (err) {
+        _this3.errors = err.response.data;
+      });
+    },
+    nextPage: function nextPage() {
+      var nextPage = this.current_page + 1;
+      window.history.replaceState(null, null, "?page=" + nextPage);
+      this.displayData(this.current_page + 1, this.search);
+    },
+    prevPage: function prevPage() {
+      var prevPage = this.current_page - 1;
+      window.history.replaceState(null, null, "?page=" + prevPage);
+      this.displayData(prevPage, this.search);
+    },
+    searchData: function searchData() {
+      this.displayData(1, this.search);
+      window.history.replaceState(null, null, "?page=1");
     }
   }
 });
@@ -3984,7 +4037,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         image_name: '',
         photo: '',
         ppn: '',
-        buy_price: ''
+        buy_price: '',
+        restock_bal: ''
       },
       add: {
         name: '',
@@ -3995,11 +4049,19 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         photo: '',
         image_name: '',
         ppn: '',
-        buy_price: ''
+        buy_price: '',
+        restock_bal: ''
       },
       search: '',
       description: ''
     }, "search", ''), "products", []), "categories", []), "errors", []), "page", 1), "first_page", 1), "last_page", null), "current_page", this.$route.query.page || 1), "next_page_url", ''), "prev_page_url", '');
+  },
+  computed: {
+    lowStockProducts: function lowStockProducts() {
+      return this.products.filter(function (product) {
+        return product.stock <= 5;
+      });
+    }
   },
   methods: {
     displayData: function displayData() {
@@ -4031,6 +4093,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       var stock = this.add.stock;
       var photo = this.add.photo;
       var buy_price = this.add.buy_price;
+      var restock_bal = this.add.restock_bal;
       var formData = new FormData();
       formData.append('name', name);
       formData.append('description', description);
@@ -4041,6 +4104,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       formData.append('stock', stock);
       formData.append('photo', photo);
       formData.append('buy_price', buy_price);
+      formData.append('restock_bal', restock_bal);
       axios.post('/api/v1/product', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -4058,6 +4122,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         _this2.add.stock = '';
         _this2.add.photo = '';
         _this2.add.buy_price = '';
+        _this2.add.restock_bal = '';
         _this2.errors = [];
       })["catch"](function (err) {
         console.log(err.response.data);
@@ -4079,6 +4144,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       var photo = this.edit.photo;
       var ppn = this.edit.ppn;
       var buy_price = this.edit.buy_price;
+      var restock_bal = this.edit.restock_bal;
       axios.get("/api/v1/product/".concat(id, "/edit")).then(function (res) {
         console.log(res.data);
         _this3.edit.id = res.data.id;
@@ -4091,6 +4157,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         _this3.edit.photo = res.data.image_name;
         _this3.edit.ppn = res.data.ppn;
         _this3.edit.buy_price = res.data.buy_price;
+        _this3.edit.restock_bal = res.data.restock_bal;
         $("#modalEdit").modal('toggle');
       })["catch"](function (err) {
         console.log(err.response);
@@ -4107,6 +4174,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       var photo = this.edit.photo;
       var ppn = this.edit.ppn;
       var buy_price = this.edit.buy_price;
+      var restock_bal = this.edit.restock_bal;
       var formData = new FormData();
       formData.append('name', name);
       formData.append('description', description);
@@ -4117,6 +4185,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       formData.append('photo', photo);
       formData.append('ppn', ppn);
       formData.append('buy_price', buy_price);
+      formData.append('restock_bal', restock_bal);
       console.log(id);
       axios.post("/api/v1/product/".concat(id), formData, {
         headers: {
@@ -4134,6 +4203,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         _this4.edit.price = '';
         _this4.edit.stock = '';
         _this4.edit.photo = '';
+        _this4.edit.restock_bal = '';
         _this4.errors = [];
       })["catch"](function (err) {
         if (err.response.status == 422) {
@@ -4186,6 +4256,14 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     formatPrice: function formatPrice(value) {
       var val = (value / 1).toFixed(0).replace('.', ',');
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+    displayLowStockProducts: function displayLowStockProducts() {
+      // Display low stock products
+      this.products = this.lowStockProducts;
+    },
+    resetDisplayData: function resetDisplayData() {
+      // Reset to display all products
+      this.displayData();
     }
   }
 });
@@ -7377,7 +7455,62 @@ var render = function render() {
     staticClass: "p-3"
   }, [_vm._m(6), _vm._v(" "), _c("p", {
     staticClass: "font-14 m-0"
-  }, [_vm._v("Last Month : " + _vm._s(_vm.data.product_sold_lastmo))])])])])])]);
+  }, [_vm._v("Last Month : " + _vm._s(_vm.data.product_sold_lastmo))])])])])]), _vm._v(" "), _vm._m(7), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "table-responsive"
+  }, [_c("h3"), _vm._v(" "), _c("table", {
+    staticClass: "table table-hover table-lg",
+    attrs: {
+      id: "category-table"
+    }
+  }, [_vm._m(8), _vm._v(" "), _c("tbody", {
+    staticClass: "color=red"
+  }, _vm._l(_vm.products, function (product) {
+    return product.restock_bal >= product.stock ? _c("tr", {
+      key: product.id
+    }, [_c("td", [_vm._v(_vm._s(product.id))]), _vm._v(" "), _c("td", [_c("b", [_vm._v(_vm._s(product.code))])]), _vm._v(" "), _c("td", [_c("img", {
+      staticClass: "image-table",
+      attrs: {
+        src: "/images/products/".concat(product.image_name),
+        alt: "Gambar"
+      }
+    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(product.name))])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.stock))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.restock_bal))]), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(product.price))])]) : _vm._e();
+  }), 0)])]), _vm._v(" "), _c("nav", {
+    staticClass: "float-right",
+    attrs: {
+      "aria-label": "Page navigation example"
+    }
+  }, [_c("ul", {
+    staticClass: "pagination"
+  }, [_c("li", {
+    staticClass: "page-item"
+  }, [this.current_page !== this.first_page ? _c("button", {
+    staticClass: "page-link",
+    attrs: {
+      href: "#"
+    },
+    on: {
+      click: _vm.prevPage
+    }
+  }, [_vm._v("Previous")]) : _vm._e()]), _vm._v(" "), _c("li", {
+    staticClass: "page-item"
+  }, [_c("button", {
+    staticClass: "page-link",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(this.current_page))])]), _vm._v(" "), _c("li", {
+    staticClass: "page-item"
+  }, [this.current_page !== this.last_page ? _c("button", {
+    staticClass: "page-link",
+    attrs: {
+      href: "#"
+    },
+    on: {
+      click: _vm.nextPage
+    }
+  }, [_vm._v("Next")]) : _vm._e()])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -7507,6 +7640,34 @@ var staticRenderFns = [function () {
   }, [_c("i", {
     staticClass: "mdi mdi-briefcase-check h5"
   })])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-sm-12"
+  }, [_c("div", {
+    staticClass: "page-title-box"
+  }, [_c("div", {
+    staticClass: "row align-items-center"
+  }, [_c("div", {
+    staticClass: "col-md-8"
+  }, [_c("h4", {
+    staticClass: "page-title m-0 text-red"
+  }, [_vm._v("Products that need re-stocking")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("div", {
+    staticClass: "float-right d-none d-md-block"
+  }, [_c("div", {
+    staticClass: "dropdown"
+  }, [_c("div", {
+    staticClass: "dropdown-menu dropdown-menu-right dropdown-menu-animated"
+  })])])])])])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Code")]), _vm._v(" "), _c("th", [_vm._v("Name")]), _vm._v(" "), _c("th", [_vm._v("Stock")]), _vm._v(" "), _c("th", [_vm._v("Restock Balance")]), _vm._v(" "), _c("th", [_vm._v("Price")])])]);
 }];
 render._withStripped = true;
 
@@ -7567,14 +7728,18 @@ var render = function render() {
         _vm.search = $event.target.value;
       }
     }
-  })])])]), _vm._v(" "), _c("div", {
+  })])])]), _vm._v(" "), _c("b-tabs", [_c("b-tab", {
+    attrs: {
+      title: "All Products"
+    }
+  }, [_c("div", {
     staticClass: "table-responsive"
   }, [_c("table", {
     staticClass: "table table-hover table-lg",
     attrs: {
       id: "category-table"
     }
-  }, [_vm._m(3), _vm._v(" "), _c("tbody", _vm._l(_vm.products, function (product) {
+  }, [_c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Code")]), _vm._v(" "), _c("th", [_vm._v("Name")]), _vm._v(" "), _c("th", [_vm._v("Stock")]), _vm._v(" "), _c("th", [_vm._v("Price")]), _vm._v(" "), _c("th", [_vm._v("Action")])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.products, function (product) {
     return _c("tr", {
       key: product.id
     }, [_c("td", [_vm._v(_vm._s(product.id))]), _vm._v(" "), _c("td", [_c("b", [_vm._v(_vm._s(product.code))])]), _vm._v(" "), _c("td", [_c("img", {
@@ -7638,7 +7803,11 @@ var render = function render() {
     on: {
       click: _vm.nextPage
     }
-  }, [_vm._v("Next")]) : _vm._e()])])])])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Next")]) : _vm._e()])])])]), _vm._v(" "), _c("b-tab", {
+    attrs: {
+      title: "Low Stock Products"
+    }
+  }, [_c("p", [_vm._v("This is the low stock tab")])])], 1)], 1)])])]), _vm._v(" "), _c("div", {
     staticClass: "modal fade",
     attrs: {
       id: "modalAdd",
@@ -7654,7 +7823,7 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "modal-content"
-  }, [_vm._m(4), _vm._v(" "), _c("form", {
+  }, [_vm._m(3), _vm._v(" "), _c("form", {
     attrs: {
       action: "",
       method: "POST",
@@ -7838,6 +8007,35 @@ var render = function render() {
     attrs: {
       "for": "email"
     }
+  }, [_vm._v("Restock Level")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.add.stock,
+      expression: "add.stock"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      id: "stock",
+      type: "number",
+      name: "stock",
+      placeholder: "Balance threshold for restocking"
+    },
+    domProps: {
+      value: _vm.add.stock
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.add, "stock", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "email"
+    }
   }, [_vm._v("Bought Price")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
@@ -7927,7 +8125,7 @@ var render = function render() {
     }
   }, [_vm._v("Picture")]), _vm._v(" "), _c("div", {
     staticClass: "input-group mb-3"
-  }, [_vm._m(5), _vm._v(" "), _c("div", {
+  }, [_vm._m(4), _vm._v(" "), _c("div", {
     staticClass: "custom-file"
   }, [_c("input", {
     staticClass: "custom-file-input",
@@ -7947,7 +8145,7 @@ var render = function render() {
     attrs: {
       "for": "inputGroupFile01"
     }
-  }, [_vm._v("Browse")])])])])]), _vm._v(" "), _vm._m(6)])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Browse")])])])])]), _vm._v(" "), _vm._m(5)])])])]), _vm._v(" "), _c("div", {
     staticClass: "modal fade",
     attrs: {
       id: "modalEdit",
@@ -7963,7 +8161,7 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "modal-content"
-  }, [_vm._m(7), _vm._v(" "), _c("form", {
+  }, [_vm._m(6), _vm._v(" "), _c("form", {
     attrs: {
       action: "",
       method: "POST",
@@ -8147,6 +8345,35 @@ var render = function render() {
     attrs: {
       "for": "email"
     }
+  }, [_vm._v("Restock Level")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.edit.restock_bal,
+      expression: "edit.restock_bal"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      id: "stock",
+      type: "number",
+      name: "stock",
+      placeholder: "Balance threshold for restocking"
+    },
+    domProps: {
+      value: _vm.edit.restock_bal
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.edit, "restock_bal", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "email"
+    }
   }, [_vm._v("Bought Price")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
@@ -8236,7 +8463,7 @@ var render = function render() {
     }
   }, [_vm._v("Picture")]), _vm._v(" "), _c("div", {
     staticClass: "input-group mb-3"
-  }, [_vm._m(8), _vm._v(" "), _c("div", {
+  }, [_vm._m(7), _vm._v(" "), _c("div", {
     staticClass: "custom-file"
   }, [_c("input", {
     staticClass: "custom-file-input",
@@ -8256,7 +8483,7 @@ var render = function render() {
     attrs: {
       "for": "inputGroupFile01"
     }
-  }, [_vm._v("Browse")])])])])]), _vm._v(" "), _vm._m(9)])])])])]);
+  }, [_vm._v("Browse")])])])])]), _vm._v(" "), _vm._m(8)])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -8312,10 +8539,6 @@ var staticRenderFns = [function () {
   }, [_c("i", {
     staticClass: "fas fa-search"
   })])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Code")]), _vm._v(" "), _c("th", [_vm._v("Name")]), _vm._v(" "), _c("th", [_vm._v("Stock")]), _vm._v(" "), _c("th", [_vm._v("Price")]), _vm._v(" "), _c("th", [_vm._v("Action")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -90529,8 +90752,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/aquacy/pos/admin4/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/aquacy/pos/admin4/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/aquacy/pos/julie-store/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/aquacy/pos/julie-store/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -47,7 +47,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="table-responsive">
+                        <b-tabs>
+                        <!-- code for all products -->
+                        <b-tab title="All Products">
+                            <div class="table-responsive">
                             <table class="table table-hover table-lg" id='category-table'>
                                 <thead>
                                     <tr>
@@ -86,6 +89,13 @@
                                     <li class="page-item"><button class="page-link" href="#" @click="nextPage" v-if="this.current_page !== this.last_page">Next</button></li>
                                 </ul>
                             </nav>
+                         </b-tab>
+                         <b-tab title="Low Stock Products">
+          <!-- ... (existing code for displaying low stock products) ... -->
+                            <p>This is the low stock tab</p>
+                        </b-tab>
+                    </b-tabs>
+                        
                     </div>
                 </div>
             </div>
@@ -137,6 +147,12 @@
                                     <label for="email">Stock</label>
                                     <input id="stock" type="number" class="form-control"
                                         name="stock" placeholder="Stok barang" v-model="add.stock">
+                             
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Restock Level</label>
+                                    <input id="stock" type="number" class="form-control"
+                                        name="stock" placeholder="Balance threshold for restocking" v-model="add.stock">
                              
                                 </div>
                                 <div class="form-group">
@@ -224,6 +240,12 @@
                             
                             </div>
                             <div class="form-group">
+                                <label for="email">Restock Level</label>
+                                <input id="stock" type="number" class="form-control"
+                                    name="stock" placeholder="Balance threshold for restocking" v-model="edit.restock_bal">
+                            
+                            </div>
+                            <div class="form-group">
                                     <label for="email">Bought Price</label>
                                     <input id="price" type="number" class="form-control"
                                         name="price" placeholder="Bought Price" v-model="edit.buy_price" >
@@ -288,6 +310,7 @@ export default {
                 photo: '',
                 ppn:'',
                 buy_price:'',
+                restock_bal:'',
             },
             add: {
                 name: '',
@@ -299,6 +322,7 @@ export default {
                 image_name: '',
                 ppn:'',
                 buy_price:'',
+                restock_bal:'',
             },
             search: '',
             description: '',
@@ -315,7 +339,11 @@ export default {
             prev_page_url: '',
         }
     },
-
+    computed: {
+      lowStockProducts() {
+        return this.products.filter(product => product.stock <= 5);
+      },
+    },
     methods: {  
         displayData(page = 1, search= '') {
             axios.get('/api/v1/product', { params: { search: this.search, page: this.page } })
@@ -339,6 +367,7 @@ export default {
             let stock = this.add.stock;
             let photo = this.add.photo;
             let buy_price = this.add.buy_price;
+            let restock_bal = this.add.restock_bal;
 
             let formData = new FormData();
             formData.append('name', name);
@@ -350,6 +379,7 @@ export default {
             formData.append('stock', stock);
             formData.append('photo', photo);
             formData.append('buy_price', buy_price);
+            formData.append('restock_bal', restock_bal);
 
 
             axios.post('/api/v1/product', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
@@ -370,6 +400,7 @@ export default {
                     this.add.stock = '';
                     this.add.photo = '';
                     this.add.buy_price = '';
+                    this.add.restock_bal = '';
                     this.errors = [];
 
                 }).catch(err => {
@@ -392,6 +423,7 @@ export default {
             let photo = this.edit.photo;
             let ppn = this.edit.ppn;
             let buy_price = this.edit.buy_price;
+            let restock_bal = this.edit.restock_bal;
 
             axios.get(`/api/v1/product/${id}/edit`)
                 .then(res => {
@@ -407,6 +439,7 @@ export default {
                     this.edit.photo = res.data.image_name;
                     this.edit.ppn = res.data.ppn;
                     this.edit.buy_price = res.data.buy_price;
+                    this.edit.restock_bal = res.data.restock_bal;
 
                     $("#modalEdit").modal('toggle');
                 }).catch(err => {
@@ -425,6 +458,7 @@ export default {
             let photo = this.edit.photo;
             let ppn = this.edit.ppn;
             let buy_price = this.edit.buy_price;
+            let restock_bal = this.edit.restock_bal;
 
             let formData = new FormData();
             formData.append('name', name);
@@ -436,6 +470,7 @@ export default {
             formData.append('photo', photo);
             formData.append('ppn', ppn);
             formData.append('buy_price', buy_price);
+            formData.append('restock_bal', restock_bal);
 
 
             console.log(id);
@@ -456,6 +491,7 @@ export default {
                     this.edit.price = '';
                     this.edit.stock = '';
                     this.edit.photo = '';
+                    this.edit.restock_bal = '';
                     this.errors = [];
 
                 }).catch(err => {
@@ -520,7 +556,16 @@ export default {
         formatPrice(value) {
             let val = (value/1).toFixed(0).replace('.', ',')
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-        }
+        },
+        displayLowStockProducts() {
+        // Display low stock products
+        this.products = this.lowStockProducts;
+      },
+  
+      resetDisplayData() {
+        // Reset to display all products
+        this.displayData();
+      },
         
     }
 }

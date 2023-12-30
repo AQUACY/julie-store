@@ -48,6 +48,7 @@ class ProductController extends Controller
             'price' => 'required|integer',
             'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'buy_price' => 'required|integer',
+            'restock_bal'=>'required',
         ]);
 
         // dd($photo->getClientOriginalName());
@@ -63,6 +64,7 @@ class ProductController extends Controller
         $product->buy_price = $request->buy_price;  //added with respect to the clients request
         $product->code = $request->code;
         $product->stock = $request->stock;
+        $product->restock_bal = $request->restock_bal;
         $product->description = $request->description;
         $product->category_id = $request->category;
         $product->slug = Str::slug($request->name,'-');
@@ -123,6 +125,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'buy_price' => 'required|numeric',
             'stock' => 'required|numeric',
+            'restock_bal' => 'required|numeric',
             'ppn' => 'required|numeric',
             // 'photo' => 'nullable|image'
         ]);
@@ -136,6 +139,7 @@ class ProductController extends Controller
         $update->price = $request->price;
         $update->buy_price = $request->buy_price;
         $update->stock = $request->stock;
+        $update->restock_bal = $request->restock_bal;
         $update->category_id = $request->category;
         $update->ppn = $request->ppn;
         if($request->hasFile('photo')) {

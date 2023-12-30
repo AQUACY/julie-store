@@ -113,7 +113,92 @@
                     </div>
                 </div>
             </div>
+            <!-- this is the begining of the product checking table -->
+
         </div>  
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h4 class="page-title m-0 text-red">Products that need re-stocking</h4>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="float-right d-none d-md-block">
+                                <div class="dropdown">
+                                    <!-- <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="ti-settings mr-1"></i> Settings
+                                    </button> -->
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
+                                        <!-- <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Separated link</a> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end col -->
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end page-title-box -->
+            </div>
+        </div> 
+        <div class="row">
+        <div class="table-responsive">
+                <h3></h3>
+                            <table class="table table-hover table-lg" id='category-table'>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Code</th>
+                                        <th>Name</th>
+                                        <th>Stock</th>
+                                        <th>Restock Balance</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="color=red">
+                                    <tr v-for="product in products" :key="product.id" v-if="product.restock_bal >= product.stock">
+                                    <td>{{ product.id }}</td>
+                                    <td><b>{{ product.code }}</b></td>
+                                    <td>
+                                        <img :src="`/images/products/${product.image_name}`" alt="Gambar" class='image-table'>
+                                        <span>{{ product.name }}</span>
+                                    </td>
+                                    <td>{{ product.stock }}</td>
+                                    <td>{{ product.restock_bal }}</td>
+                                    <td>Gh₵ {{ product.price }}</td>
+                                    </tr>
+                                </tbody>
+                                <!-- <tbody>
+                                    <tr v-for="product in products" :key="product.id" v-if="product.restock_bal === 5">
+                                        <td>{{ product.id }}</td>
+                                        <td><b>{{ product.code }}</b></td>
+
+                                        <td>
+                                            <img :src="`/images/products/${product.image_name}`" alt="Gambar" class='image-table'>
+                                            <span>{{ product.name }}</span>
+                                        </td>
+                                        
+                                        <td>{{ product.stock }}</td>
+                                        <td>Gh₵ {{ product.price }}</td>
+                                    </tr>
+                                </tbody> -->
+                            </table>
+                        </div>
+                        <nav aria-label="Page navigation example" class="float-right">
+                                <ul class="pagination">
+                                    <li class="page-item"><button class="page-link" href="#" v-if="this.current_page !== this.first_page" @click="prevPage">Previous</button></li>
+                                    <li class="page-item"><button class="page-link" href="#">{{ this.current_page }}</button></li>
+                                    <li class="page-item"><button class="page-link" href="#" @click="nextPage" v-if="this.current_page !== this.last_page">Next</button></li>
+                                </ul>
+                            </nav>
+                            </div>
+        
         <!-- end row -->
 
         <!-- end row -->
@@ -127,11 +212,25 @@ export default {
     mounted() {
         // console.log("INI HOME ADMINz");
         this.displayData();
+        this.displayDatas(this.page, this.search);
+        this.getCategories();
+        console.log(this.categories);
     },
+    
 
     data() {
         return {
             data: [],
+            products: [],
+            categories: [],
+            errors: [],
+            search: '',
+            page: 1,
+            first_page: 1,
+            last_page: null,
+            current_page: this.$route.query.page || 1, 
+            next_page_url: '',
+            prev_page_url: '',
         }
     },
 
@@ -142,7 +241,43 @@ export default {
                     this.data = res.data;
                     console.log(this.data);
                 })
-        }
+        },
+        displayDatas(page = 1, search= '') {
+            axios.get('/api/v1/product', { params: { search: this.search, page: this.page } })
+                .then(result => {
+                    console.log(result.data);
+                    this.products = result.data.data;
+                    this.last_page = result.data.meta.last_page;
+                    this.current_page = result.data.meta.current_page;
+                    this.next_page_url = result.data.links.next;
+                    this.prev_page_url = result.data.links.prev;
+                });
+        },
+        getCategories() {
+            axios.get(`/api/v1/category`)
+                .then(res => {
+                    this.categories = res.data.data;
+                })
+                .catch(err => {
+                    this.errors = err.response.data;
+                })
+        },
+        nextPage() {
+            let nextPage = this.current_page+1;
+            window.history.replaceState(null, null, "?page="+nextPage);
+            this.displayData(this.current_page+1, this.search);
+        },
+
+        prevPage() {
+            let prevPage = this.current_page-1;
+            window.history.replaceState(null, null, "?page="+prevPage);
+            this.displayData(prevPage, this.search);
+        },
+        searchData() {
+            this.displayData(1, this.search);
+            window.history.replaceState(null, null, "?page=1");
+        },
+
     }
 }
 </script>

@@ -9018,7 +9018,7 @@ var staticRenderFns = [function () {
     staticClass: "col-md-8"
   }, [_c("h4", {
     staticClass: "page-title m-0"
-  }, [_vm._v("Semua Laporan")])])])])])]);
+  }, [_vm._v("All Reports")])])])])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -10449,7 +10449,7 @@ var render = function render() {
       return index == 0 ? _c("span", {
         key: index
       }, [_vm._v(_vm._s(detail.product.name))]) : _vm._e();
-    }), _vm._v(" "), data.details.length > 1 ? _c("span", [_vm._v("dan " + _vm._s(data.details.length - 1) + " lainnya")]) : _vm._e()], 2), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.customer.name))]), _vm._v(" "), _c("td", [_vm._v("Rp " + _vm._s(_vm.numberFormat(data.total)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.moment(data.created_at).format("DD MMMM YYYY")))]), _vm._v(" "), _c("td", [_c("router-link", {
+    }), _vm._v(" "), data.details.length > 1 ? _c("span", [_vm._v("dan " + _vm._s(data.details.length - 1) + " lainnya")]) : _vm._e()], 2), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.customer.name))]), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.numberFormat(data.total)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.moment(data.created_at).format("DD MMMM YYYY")))]), _vm._v(" "), _c("td", [_c("router-link", {
       staticClass: "btn btn-primary btn-sm",
       attrs: {
         to: {

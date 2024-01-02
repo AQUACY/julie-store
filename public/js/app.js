@@ -3985,12 +3985,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     displayDatas: function displayDatas() {
       var _this3 = this;
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      var search = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.page;
+      var search = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.search;
       axios.get('/api/v1/product', {
         params: {
-          search: this.search,
-          page: this.page
+          search: search,
+          page: page
         }
       }).then(function (result) {
         console.log(result.data);
@@ -4012,7 +4012,7 @@ __webpack_require__.r(__webpack_exports__);
     nextPage: function nextPage() {
       var nextPage = this.current_page + 1;
       window.history.replaceState(null, null, "?page=" + nextPage);
-      this.displayData(this.current_page + 1, this.search);
+      this.displayDatas(this.current_page + 1, this.search);
     },
     prevPage: function prevPage() {
       var prevPage = this.current_page - 1;
@@ -4107,12 +4107,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     displayData: function displayData() {
       var _this = this;
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      var search = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.page;
+      var search = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.search;
       axios.get('/api/v1/product', {
         params: {
-          search: this.search,
-          page: this.page
+          search: search,
+          page: page
         }
       }).then(function (result) {
         console.log(result.data);
@@ -7547,7 +7547,7 @@ var render = function render() {
       staticClass: "image-table",
       attrs: {
         src: "/images/products/".concat(product.image_name),
-        alt: "Gambar"
+        alt: "Product_Picture"
       }
     }), _vm._v(" "), _c("span", [_vm._v(_vm._s(product.name))])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.stock))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.restock_bal))]), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(product.price))])]) : _vm._e();
   }), 0)])]), _vm._v(" "), _c("nav", {
@@ -7881,7 +7881,7 @@ var render = function render() {
       staticClass: "image-table",
       attrs: {
         src: "/images/products/".concat(product.image_name),
-        alt: "Gambar"
+        alt: "Product_Picture"
       }
     }), _vm._v(" "), _c("span", [_vm._v(_vm._s(product.name))])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.stock))]), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.formatPrice(product.price)))]), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-warning",
@@ -7907,7 +7907,7 @@ var render = function render() {
       staticClass: "image-table",
       attrs: {
         src: "/images/products/".concat(product.image_name),
-        alt: "Gambar"
+        alt: "Product_Picture"
       }
     }), _vm._v(" "), _c("span", [_vm._v(_vm._s(product.name))])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.stock))]), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.formatPrice(product.price)))]), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-warning",
@@ -7978,7 +7978,7 @@ var render = function render() {
       staticClass: "image-table",
       attrs: {
         src: "/images/products/".concat(product.image_name),
-        alt: "Gambar"
+        alt: "Product_Picture"
       }
     }), _vm._v(" "), _c("span", [_vm._v(_vm._s(product.name))])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.stock))]), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.formatPrice(product.price)))]), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-warning",

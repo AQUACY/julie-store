@@ -420,8 +420,8 @@ export default {
       },
     },
     methods: {  
-        displayData(page = 1, search= '') {
-            axios.get('/api/v1/product', { params: { search: this.search, page: this.page } })
+        displayData(page = this.page, search= this.search) {
+            axios.get('/api/v1/product', { params: { search: search, page: page } })
                 .then(result => {
                     console.log(result.data);
                     this.products = result.data.data;

@@ -79,7 +79,7 @@
                                         <td><b>{{ product.code }}</b></td>
 
                                         <td>
-                                            <img :src="`/images/products/${product.image_name}`" alt="Gambar" class='image-table'>
+                                            <img :src="`/images/products/${product.image_name}`" alt="Product_Picture" class='image-table'>
                                             <span>{{ product.name }}</span>
                                         </td>
                                         
@@ -96,7 +96,7 @@
                                         <td><b>{{ product.code }}</b></td>
 
                                         <td>
-                                            <img :src="`/images/products/${product.image_name}`" alt="Gambar" class='image-table'>
+                                            <img :src="`/images/products/${product.image_name}`" alt="Product_Picture" class='image-table'>
                                             <span>{{ product.name }}</span>
                                         </td>
                                         
@@ -139,7 +139,7 @@
                                         <td><b>{{ product.code }}</b></td>
 
                                         <td>
-                                            <img :src="`/images/products/${product.image_name}`" alt="Gambar" class='image-table'>
+                                            <img :src="`/images/products/${product.image_name}`" alt="Product_Picture" class='image-table'>
                                             <span>{{ product.name }}</span>
                                         </td>
                                         

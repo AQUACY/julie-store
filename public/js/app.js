@@ -3504,14 +3504,14 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   methods: {
     displayData: function displayData() {
       var _this2 = this;
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      var search = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.page;
+      var search = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.search;
       this.$http({
         url: '/api/v1/category',
         method: 'GET',
         params: {
-          search: this.search,
-          page: this.page
+          search: search,
+          page: page
         }
       }).then(function (result) {
         console.log(result.data);
@@ -4017,7 +4017,7 @@ __webpack_require__.r(__webpack_exports__);
     prevPage: function prevPage() {
       var prevPage = this.current_page - 1;
       window.history.replaceState(null, null, "?page=" + prevPage);
-      this.displayData(prevPage, this.search);
+      this.displayDatas(prevPage, this.search);
     },
     searchData: function searchData() {
       this.displayData(1, this.search);

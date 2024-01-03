@@ -1,4 +1,4 @@
-# laravel-vue-pos
+# Julie-Store
 A Point Of Sale Web Application Made With Laravel + VueJS2
 
 ## Installation
@@ -7,8 +7,8 @@ Use the package manager (composer and npm) for installing
 
 1. Do the following commands for installing
 ```bash
-git clone https://github.com/zuramai/laravel-vue-pos.git
-cd laravel-vue-pos
+git clone https://github.com/AQUACY/julie-store.git
+cd julie-store
 composer install
 npm install
 copy .env.example .env

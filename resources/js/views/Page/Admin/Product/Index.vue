@@ -579,9 +579,16 @@ export default {
         },
 
         getCategories() {
-            axios.get(`/api/v1/category`)
+            const perPage = 20;
+
+            axios.get(`/api/v1/category`, {
+                        params: {
+                            per_page: perPage,
+                        }
+                    })
                 .then(res => {
                     this.categories = res.data.data;
+                    console.log('these are all the categories', this.categories)
                 })
                 .catch(err => {
                     this.errors = err.response.data;

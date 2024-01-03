@@ -4256,8 +4256,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     getCategories: function getCategories() {
       var _this5 = this;
-      axios.get("/api/v1/category").then(function (res) {
+      var perPage = 20;
+      axios.get("/api/v1/category", {
+        params: {
+          per_page: perPage
+        }
+      }).then(function (res) {
         _this5.categories = res.data.data;
+        console.log('these are all the categories', _this5.categories);
       })["catch"](function (err) {
         _this5.errors = err.response.data;
       });
@@ -5421,7 +5427,7 @@ var render = function render() {
       staticClass: "image-table",
       attrs: {
         src: "/images/categories/".concat(category.image_name),
-        alt: "Gambar"
+        alt: "Product_Picture"
       }
     })]), _vm._v(" "), _c("td", [_vm._v(_vm._s(category.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(category.description))]), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-warning",

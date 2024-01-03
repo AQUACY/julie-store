@@ -41,6 +41,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        app()->setLocale('en');
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -106,6 +107,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        app()->setLocale('en');
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],

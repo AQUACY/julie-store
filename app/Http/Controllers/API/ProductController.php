@@ -47,6 +47,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        app()->setLocale('en');
         $request->validate([
             'name' => 'required',
             'code' => 'required|unique:products',
@@ -125,6 +126,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        app()->setLocale('en');
         $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',

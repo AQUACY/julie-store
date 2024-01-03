@@ -64,7 +64,7 @@
 
                                         <td>
                                             
-                                            <img :src="`/images/categories/${category.image_name}`" alt="Gambar" class='image-table'>
+                                            <img :src="`/images/categories/${category.image_name}`" alt="Product_Picture" class='image-table'>
 
                                         </td>
                                         

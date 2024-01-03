@@ -39,6 +39,7 @@ class DiscountController extends Controller
      */
     public function store(Request $request)
     {
+        app()->setLocale('en');
         $request->validate([
             'product' => 'required|exists:products,code',
             'amount' => 'required|gte:1'
@@ -52,7 +53,7 @@ class DiscountController extends Controller
         $discount->status = true;
         $discount->save();
 
-        return response()->json(['status' => true, 'message' =>'Sukses Menambah Diskon!']);
+        return response()->json(['status' => true, 'message' =>'Successfully Add Discounts!']);
 
     }
 
@@ -101,6 +102,6 @@ class DiscountController extends Controller
         $discount = Discount::find($id);
         $discount->delete();
 
-        return response()->json(['status' => true, 'message' => 'Sukses Hapus Data Diskon']);
+        return response()->json(['status' => true, 'message' => 'Successfully Delete Discount Data']);
     }
 }

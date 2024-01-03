@@ -39,6 +39,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+        app()->setLocale('en');
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'alamat' => 'required',
@@ -108,6 +109,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
+        app()->setLocale('en');
         $request->validate([
             'name' => 'required',
             'alamat' => 'required',

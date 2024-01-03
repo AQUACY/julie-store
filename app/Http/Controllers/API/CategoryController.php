@@ -15,9 +15,10 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // pagination changed from 10 to 20 to view all the categories
     public function index(Request $r)
     {
-        return new CategoryCollection(Category::where('name','LIKE',"%".$r->get('search')."%")->orderBy('id','desc')->paginate(10));
+        return new CategoryCollection(Category::where('name','LIKE',"%".$r->get('search')."%")->orderBy('id','desc')->paginate(20));
     }
 
     /**
@@ -38,6 +39,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        app()->setLocale('en');
         $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -94,6 +96,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        app()->setLocale('en');
         $name = $request->name;
         $description = $request->description;
         $slug =Str::slug($name);

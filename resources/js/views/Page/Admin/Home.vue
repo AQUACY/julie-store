@@ -208,7 +208,7 @@
                                     <td>{{ product.id }}</td>
                                     <td><b>{{ product.code }}</b></td>
                                     <td>
-                                        <img :src="`/images/products/${product.image_name}`" alt="Gambar" class='image-table'>
+                                        <img :src="`/images/products/${product.image_name}`" alt="Product_Picture" class='image-table'>
                                         <span>{{ product.name }}</span>
                                     </td>
                                     <td>{{ product.stock }}</td>
@@ -222,7 +222,7 @@
                                         <td><b>{{ product.code }}</b></td>
 
                                         <td>
-                                            <img :src="`/images/products/${product.image_name}`" alt="Gambar" class='image-table'>
+                                            <img :src="`/images/products/${product.image_name}`" alt="Product_Picture" class='image-table'>
                                             <span>{{ product.name }}</span>
                                         </td>
                                         
@@ -311,8 +311,8 @@ export default {
                 }, 0);
                 // console.log('this is the total money',this.totalMoney)
         },
-        displayDatas(page = 1, search= '') {
-            axios.get('/api/v1/product', { params: { search: this.search, page: this.page } })
+        displayDatas(page = this.page, search= this.search) {
+            axios.get('/api/v1/product', { params: { search: search, page: page } })
                 .then(result => {
                     console.log(result.data);
                     this.products = result.data.data;
@@ -334,13 +334,13 @@ export default {
         nextPage() {
             let nextPage = this.current_page+1;
             window.history.replaceState(null, null, "?page="+nextPage);
-            this.displayData(this.current_page+1, this.search);
+            this.displayDatas(this.current_page+1, this.search);
         },
 
         prevPage() {
             let prevPage = this.current_page-1;
             window.history.replaceState(null, null, "?page="+prevPage);
-            this.displayData(prevPage, this.search);
+            this.displayDatas(prevPage, this.search);
         },
         searchData() {
             this.displayData(1, this.search);

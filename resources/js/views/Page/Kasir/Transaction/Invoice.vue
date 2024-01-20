@@ -75,7 +75,7 @@
                                                         <div class="col-6 m-t-30 text-right">
                                                             <address>
                                                                 <strong>Order Date:</strong><br>
-                                                                {{ moment(data_order.created_at).format('DD MMMM YYYY') }}<br><br>
+                                                                {{ moment(data_order.created_at).locale('en').format('DD MMMM YYYY') }}<br><br>
                                                             </address>
                                                         </div>
                                                     </div>

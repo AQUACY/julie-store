@@ -64,7 +64,7 @@
 
                                         <td>
                                             
-                                            <img :src="`/images/categories/${category.image_name}`" alt="Gambar" class='image-table'>
+                                            <img :src="`/images/categories/${category.image_name}`" alt="Product_Picture" class='image-table'>
 
                                         </td>
                                         
@@ -215,8 +215,8 @@ export default {
     },
 
     methods: {  
-        displayData(page = 1, search= '') {
-            this.$http({url:'/api/v1/category',method: 'GET',  params: { search: this.search, page: this.page } })
+        displayData(page = this.page, search= this.search) {
+            this.$http({url:'/api/v1/category',method: 'GET',  params: { search: search, page: page } })
                 .then(result => {
                     console.log(result.data);
                     this.categories = result.data.data;

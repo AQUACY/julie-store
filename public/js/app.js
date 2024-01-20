@@ -3504,14 +3504,14 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   methods: {
     displayData: function displayData() {
       var _this2 = this;
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      var search = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.page;
+      var search = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.search;
       this.$http({
         url: '/api/v1/category',
         method: 'GET',
         params: {
-          search: this.search,
-          page: this.page
+          search: search,
+          page: page
         }
       }).then(function (result) {
         console.log(result.data);
@@ -3985,12 +3985,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     displayDatas: function displayDatas() {
       var _this3 = this;
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      var search = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.page;
+      var search = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.search;
       axios.get('/api/v1/product', {
         params: {
-          search: this.search,
-          page: this.page
+          search: search,
+          page: page
         }
       }).then(function (result) {
         console.log(result.data);
@@ -4012,12 +4012,12 @@ __webpack_require__.r(__webpack_exports__);
     nextPage: function nextPage() {
       var nextPage = this.current_page + 1;
       window.history.replaceState(null, null, "?page=" + nextPage);
-      this.displayData(this.current_page + 1, this.search);
+      this.displayDatas(this.current_page + 1, this.search);
     },
     prevPage: function prevPage() {
       var prevPage = this.current_page - 1;
       window.history.replaceState(null, null, "?page=" + prevPage);
-      this.displayData(prevPage, this.search);
+      this.displayDatas(prevPage, this.search);
     },
     searchData: function searchData() {
       this.displayData(1, this.search);
@@ -4107,12 +4107,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     displayData: function displayData() {
       var _this = this;
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      var search = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.page;
+      var search = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.search;
       axios.get('/api/v1/product', {
         params: {
-          search: this.search,
-          page: this.page
+          search: search,
+          page: page
         }
       }).then(function (result) {
         console.log(result.data);
@@ -4256,8 +4256,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     getCategories: function getCategories() {
       var _this5 = this;
-      axios.get("/api/v1/category").then(function (res) {
+      var perPage = 20;
+      axios.get("/api/v1/category", {
+        params: {
+          per_page: perPage
+        }
+      }).then(function (res) {
         _this5.categories = res.data.data;
+        console.log('these are all the categories', _this5.categories);
       })["catch"](function (err) {
         _this5.errors = err.response.data;
       });
@@ -4426,6 +4432,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       axios.get("/api/v1/transaction/history/all").then(function (res) {
         _this.transactions = res.data.data;
+        console.log(_this.transactions);
       });
     }
   }
@@ -5420,7 +5427,7 @@ var render = function render() {
       staticClass: "image-table",
       attrs: {
         src: "/images/categories/".concat(category.image_name),
-        alt: "Gambar"
+        alt: "Product_Picture"
       }
     })]), _vm._v(" "), _c("td", [_vm._v(_vm._s(category.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(category.description))]), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-warning",
@@ -7546,7 +7553,7 @@ var render = function render() {
       staticClass: "image-table",
       attrs: {
         src: "/images/products/".concat(product.image_name),
-        alt: "Gambar"
+        alt: "Product_Picture"
       }
     }), _vm._v(" "), _c("span", [_vm._v(_vm._s(product.name))])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.stock))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.restock_bal))]), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(product.price))])]) : _vm._e();
   }), 0)])]), _vm._v(" "), _c("nav", {
@@ -7880,7 +7887,7 @@ var render = function render() {
       staticClass: "image-table",
       attrs: {
         src: "/images/products/".concat(product.image_name),
-        alt: "Gambar"
+        alt: "Product_Picture"
       }
     }), _vm._v(" "), _c("span", [_vm._v(_vm._s(product.name))])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.stock))]), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.formatPrice(product.price)))]), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-warning",
@@ -7906,7 +7913,7 @@ var render = function render() {
       staticClass: "image-table",
       attrs: {
         src: "/images/products/".concat(product.image_name),
-        alt: "Gambar"
+        alt: "Product_Picture"
       }
     }), _vm._v(" "), _c("span", [_vm._v(_vm._s(product.name))])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.stock))]), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.formatPrice(product.price)))]), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-warning",
@@ -7977,7 +7984,7 @@ var render = function render() {
       staticClass: "image-table",
       attrs: {
         src: "/images/products/".concat(product.image_name),
-        alt: "Gambar"
+        alt: "Product_Picture"
       }
     }), _vm._v(" "), _c("span", [_vm._v(_vm._s(product.name))])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.stock))]), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.formatPrice(product.price)))]), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-warning",
@@ -9087,7 +9094,7 @@ var render = function render() {
       return index == 0 ? _c("span", {
         key: index
       }, [_vm._v(_vm._s(detail.product.name))]) : _vm._e();
-    }), _vm._v(" "), data.details.length > 1 ? _c("span", [_vm._v(" " + _vm._s(data.details.length - 1) + " ")]) : _vm._e()], 2), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.numberFormat(data.total)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.moment(data.created_at).format("DD MMMM YYYY")))]), _vm._v(" "), _c("td", [_c("router-link", {
+    }), _vm._v(" "), data.details.length > 1 ? _c("span", [_vm._v(" " + _vm._s(data.details.length - 1) + " ")]) : _vm._e()], 2), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.numberFormat(data.total)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.moment(data.created_at).locale("en").format("DD MMMM YYYY")))]), _vm._v(" "), _c("td", [_c("router-link", {
       staticClass: "btn btn-primary btn-sm",
       attrs: {
         to: {
@@ -10449,7 +10456,7 @@ var render = function render() {
       return index == 0 ? _c("span", {
         key: index
       }, [_vm._v(_vm._s(detail.product.name))]) : _vm._e();
-    }), _vm._v(" "), data.details.length > 1 ? _c("span", [_vm._v("dan " + _vm._s(data.details.length - 1) + " lainnya")]) : _vm._e()], 2), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.customer.name))]), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.numberFormat(data.total)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.moment(data.created_at).format("DD MMMM YYYY")))]), _vm._v(" "), _c("td", [_c("router-link", {
+    }), _vm._v(" "), data.details.length > 1 ? _c("span", [_vm._v("dan " + _vm._s(data.details.length - 1) + " lainnya")]) : _vm._e()], 2), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.customer.name))]), _vm._v(" "), _c("td", [_vm._v("Gh₵ " + _vm._s(_vm.numberFormat(data.total)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.moment(data.created_at).locale("en").format("DD MMMM YYYY")))]), _vm._v(" "), _c("td", [_c("router-link", {
       staticClass: "btn btn-primary btn-sm",
       attrs: {
         to: {
@@ -10484,7 +10491,7 @@ var staticRenderFns = [function () {
     staticClass: "col-8"
   }, [_c("h4", {
     staticClass: "mt-0 header-title"
-  }, [_vm._v("Semua Transaksi")])])]);
+  }, [_vm._v("All Transactions")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -10960,7 +10967,7 @@ var render = function render() {
     staticClass: "col-6 m-t-30"
   }, [_c("address", [_c("strong", [_vm._v("Mode of Payment:")]), _c("br"), _vm._v("\n                                                            " + _vm._s(_vm.data_order.payment_method.name) + " "), _c("br")])]), _vm._v(" "), _c("div", {
     staticClass: "col-6 m-t-30 text-right"
-  }, [_c("address", [_c("strong", [_vm._v("Order Date:")]), _c("br"), _vm._v("\n                                                            " + _vm._s(_vm.moment(_vm.data_order.created_at).format("DD MMMM YYYY"))), _c("br"), _c("br")])])])])]), _vm._v(" "), _c("div", {
+  }, [_c("address", [_c("strong", [_vm._v("Order Date:")]), _c("br"), _vm._v("\n                                                            " + _vm._s(_vm.moment(_vm.data_order.created_at).locale("en").format("DD MMMM YYYY"))), _c("br"), _c("br")])])])])]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-12"

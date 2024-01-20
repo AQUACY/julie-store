@@ -79,7 +79,7 @@
                                         <td><b>{{ product.code }}</b></td>
 
                                         <td>
-                                            <img :src="`/images/products/${product.image_name}`" alt="Gambar" class='image-table'>
+                                            <img :src="`/images/products/${product.image_name}`" alt="Product_Picture" class='image-table'>
                                             <span>{{ product.name }}</span>
                                         </td>
                                         
@@ -96,7 +96,7 @@
                                         <td><b>{{ product.code }}</b></td>
 
                                         <td>
-                                            <img :src="`/images/products/${product.image_name}`" alt="Gambar" class='image-table'>
+                                            <img :src="`/images/products/${product.image_name}`" alt="Product_Picture" class='image-table'>
                                             <span>{{ product.name }}</span>
                                         </td>
                                         
@@ -139,7 +139,7 @@
                                         <td><b>{{ product.code }}</b></td>
 
                                         <td>
-                                            <img :src="`/images/products/${product.image_name}`" alt="Gambar" class='image-table'>
+                                            <img :src="`/images/products/${product.image_name}`" alt="Product_Picture" class='image-table'>
                                             <span>{{ product.name }}</span>
                                         </td>
                                         
@@ -420,8 +420,8 @@ export default {
       },
     },
     methods: {  
-        displayData(page = 1, search= '') {
-            axios.get('/api/v1/product', { params: { search: this.search, page: this.page } })
+        displayData(page = this.page, search= this.search) {
+            axios.get('/api/v1/product', { params: { search: search, page: page } })
                 .then(result => {
                     console.log(result.data);
                     this.products = result.data.data;
@@ -579,9 +579,16 @@ export default {
         },
 
         getCategories() {
-            axios.get(`/api/v1/category`)
+            const perPage = 20;
+
+            axios.get(`/api/v1/category`, {
+                        params: {
+                            per_page: perPage,
+                        }
+                    })
                 .then(res => {
                     this.categories = res.data.data;
+                    console.log('these are all the categories', this.categories)
                 })
                 .catch(err => {
                     this.errors = err.response.data;
